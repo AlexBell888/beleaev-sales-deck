@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Book a call or get your free Snapshot | Cited.</title>
+<meta name="description" content="One call, one snapshot, one proposal. No procurement maze. Book a 30-minute discovery call or request the free AI Visibility Snapshot." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .page-hero { padding: 140px 24px 70px; text-align: center; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .page-hero p.lead { font-size: 18px; color: var(--text-2); max-width: 720px; margin: 0 auto; }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .form-card {
+    padding: 40px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 24px;
+  }
+  .form-card h2 { font-size: 26px; margin-bottom: 12px; }
+  .form-card > p { color: var(--text-2); margin-bottom: 28px; font-size: 15px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-row .form-group { margin-bottom: 16px; }
+
+  .form-success {
+    padding: 20px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 12px;
+    color: var(--green);
+    margin-top: 16px;
+    display: none;
+  }
+  .form-success.show { display: block; }
+
+  .contact-side { display: flex; flex-direction: column; gap: 16px; }
+  .contact-box {
+    padding: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .contact-box h4 { font-size: 16px; margin-bottom: 10px; }
+  .contact-box p { font-size: 14px; color: var(--text-2); line-height: 1.55; margin-bottom: 14px; }
+  .contact-box a.contact-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono';
+    font-size: 14px;
+    color: var(--gold);
+    font-weight: 500;
+    padding: 10px 14px;
+    background: rgba(255,209,102,0.08);
+    border-radius: 10px;
+    border: 1px solid rgba(255,209,102,0.2);
+  }
+  .contact-box a.contact-link:hover { background: rgba(255,209,102,0.15); }
+
+  .steps-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 32px; }
+  .step-mini {
+    padding: 18px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    text-align: center;
+  }
+  .step-mini-num { font-family: 'Space Grotesk'; font-size: 22px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
+  .step-mini-label { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.12em; }
+
+  .booking-banner {
+    padding: 40px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(255,209,102,0.05));
+    border: 1px solid var(--border-2);
+    border-radius: 24px;
+    text-align: center;
+    margin-top: 60px;
+  }
+  .booking-banner h3 { font-size: 26px; margin-bottom: 12px; }
+  .booking-banner p { color: var(--text-2); max-width: 560px; margin: 0 auto 24px; }
+
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .steps-strip { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">CONTACT · NO PROCUREMENT MAZE</div>
+    <h1>One call. One snapshot.<br/><span class="gradient-text">One proposal.</span></h1>
+    <p class="lead">No seven-stage sales process. We'll learn your category on a 30-minute call, send you a free 4-page AI Visibility Snapshot in 5 working days, and a written proposal within 10 days of the call.</p>
+  </div>
+</section>
+
+<section style="padding-top: 20px;">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Form -->
+      <div class="form-card" id="booking">
+        <div class="eyebrow" style="margin-bottom: 14px;">REQUEST YOUR FREE SNAPSHOT</div>
+        <h2>Tell us about your brand.</h2>
+        <p>We'll use these answers to score your AI visibility across six engines and benchmark against your three nearest competitors.</p>
+
+        <form id="snapshotForm" onsubmit="event.preventDefault(); document.getElementById('snapshotForm').style.display='none'; document.getElementById('formSuccess').classList.add('show');">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your name *</label>
+              <input type="text" id="name" name="name" required placeholder="Alex Smith" />
+            </div>
+            <div class="form-group">
+              <label for="role">Your role *</label>
+              <input type="text" id="role" name="role" required placeholder="CMO / Head of Marketing / Founder" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="company">Company name *</label>
+              <input type="text" id="company" name="company" required placeholder="Your company" />
+            </div>
+            <div class="form-group">
+              <label for="website">Company website *</label>
+              <input type="url" id="website" name="website" required placeholder="https://" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">Work email *</label>
+              <input type="email" id="email" name="email" required placeholder="you@company.com" />
+            </div>
+            <div class="form-group">
+              <label for="tier">Interested tier</label>
+              <select id="tier" name="tier">
+                <option value="">Not sure yet</option>
+                <option value="bronze">Bronze — £2.5K–£5K/mo</option>
+                <option value="silver">Silver — £5K–£10K/mo</option>
+                <option value="gold">Gold — £10K–£30K+/mo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry">
+              <option value="">Pick one</option>
+              <option>E-commerce / DTC</option>
+              <option>B2B SaaS</option>
+              <option>Fintech</option>
+              <option>Healthtech</option>
+              <option>Legaltech</option>
+              <option>Media / Publishing</option>
+              <option>Professional services</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="competitors">Your three nearest competitors (for benchmark)</label>
+            <input type="text" id="competitors" name="competitors" placeholder="e.g. acme.com, beta.com, gamma.com" />
+          </div>
+
+          <div class="form-group">
+            <label for="notes">Anything specific to mention?</label>
+            <textarea id="notes" name="notes" placeholder="A launch date, a board KPI, a specific query you care about..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%; justify-content: center;">⚡ Request my free Snapshot</button>
+
+          <div style="font-size: 12px; color: var(--text-3); margin-top: 14px; text-align: center; font-family: 'JetBrains Mono'; letter-spacing: 0.05em;">
+            5 WORKING DAYS · NO PAYMENT · NO AUTO-RENEWAL · GDPR-COMPLIANT
+          </div>
+        </form>
+
+        <div class="form-success" id="formSuccess">
+          <strong>✓ Thanks — we've got it.</strong> You'll hear from us within 2 working days with a short intake call, then your Snapshot lands 5 working days after that. Check your inbox for a confirmation from hello@cited.agency.
+        </div>
+
+        <div class="steps-strip">
+          <div class="step-mini">
+            <div class="step-mini-num">30 min</div>
+            <div class="step-mini-label">Discovery call</div>
+          </div>
+          <div class="step-mini">
+            <div class="step-mini-num">5 days</div>
+            <div class="step-mini-label">Free Snapshot</div>
+          </div>
+          <div class="step-mini">
+            <div class="step-mini-num">10 days</div>
+            <div class="step-mini-label">Written proposal</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Side info -->
+      <div class="contact-side">
+        <div class="contact-box">
+          <h4>📧 Email direct</h4>
+          <p>For proposals, partnerships, press, or anything the form doesn't cover — we read every message.</p>
+          <a href="mailto:hello@cited.agency" class="contact-link">hello@cited.agency</a>
+        </div>
+
+        <div class="contact-box">
+          <h4>📞 Phone</h4>
+          <p>Prefer to talk? Book a 30-minute discovery call directly. Mon–Fri, 09:00–18:00 UK.</p>
+          <a href="tel:+442012345678" class="contact-link">+44 20 1234 5678</a>
+        </div>
+
+        <div class="contact-box">
+          <h4>📍 London HQ</h4>
+          <p>We work remote-first with team members across UK, EU, and Dubai. Our registered office is in London.</p>
+          <div style="font-family: 'JetBrains Mono'; font-size: 13px; color: var(--text-2); line-height: 1.6;">
+            Cited. Ltd<br/>
+            London, United Kingdom
+          </div>
+        </div>
+
+        <div class="contact-box" style="background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04)); border-color: var(--border-2);">
+          <h4>🔒 For enterprise procurement</h4>
+          <p>DPIAs, GDPR/EU AI Act documentation, SOC 2 evidence, and standard enterprise vendor forms — we have them all ready.</p>
+          <a href="mailto:procurement@cited.agency" class="contact-link">procurement@cited.agency</a>
+        </div>
+
+        <div class="contact-box" style="background: rgba(0,0,0,0.4);">
+          <h4>💼 Careers</h4>
+          <p>We hire senior operators, not account managers. Writers, strategists, data engineers, PR leads.</p>
+          <a href="mailto:careers@cited.agency" class="contact-link">careers@cited.agency</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Booking banner -->
+    <div class="booking-banner">
+      <div class="eyebrow gold" style="margin: 0 auto 16px;">SKIP THE FORM</div>
+      <h3>Rather just book a call? Do it now.</h3>
+      <p>Pick a time that works. 30 minutes. We'll send the Snapshot right after.</p>
+      <a href="https://calendly.com/cited-agency/discovery" target="_blank" rel="noopener" class="btn btn-primary btn-lg">📅 Open the calendar →</a>
+      <div style="margin-top: 18px; font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); letter-spacing: 0.1em;">CALENDLY · 30 MIN · UK / EU TIME ZONES</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+  // Pre-fill tier from query param
+  const params = new URLSearchParams(location.search);
+  const tier = params.get('tier');
+  if (tier) {
+    const sel = document.getElementById('tier');
+    if (sel) sel.value = tier;
+  }
+</script>
+</body>
+</html>

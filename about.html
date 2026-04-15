@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Who we are and what we believe | Cited.</title>
+<meta name="description" content="The UK's first dedicated GEO agency. What we believe, how we work, and why we built the measurement platform your competitors will buy from." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .page-hero { padding: 140px 24px 70px; text-align: center; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .page-hero p.lead { font-size: 19px; color: var(--text-2); max-width: 780px; margin: 0 auto; line-height: 1.55; }
+
+  .belief-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .belief {
+    padding: 32px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .belief-num {
+    font-family: 'Space Grotesk';
+    font-size: 14px;
+    color: var(--gold);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+  }
+  .belief h3 { font-size: 20px; margin-bottom: 12px; }
+  .belief p { font-size: 14.5px; color: var(--text-2); line-height: 1.6; }
+
+  .founder-block {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 48px;
+    align-items: center;
+    padding: 56px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.06), rgba(255,209,102,0.03));
+    border: 1px solid var(--border-2);
+    border-radius: 28px;
+  }
+  .founder-avatar {
+    aspect-ratio: 1;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk';
+    font-size: 80px;
+    font-weight: 700;
+    color: #000;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+  .founder-quote { font-size: 22px; line-height: 1.45; color: var(--text); margin-bottom: 28px; font-weight: 500; }
+  .founder-meta { font-size: 14px; color: var(--text-2); margin-bottom: 20px; }
+  .founder-meta strong { color: var(--text); display: block; font-size: 17px; margin-bottom: 4px; font-family: 'Space Grotesk'; }
+
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .team-card { padding: 28px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); text-align: center; }
+  .team-avatar { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 16px; background: linear-gradient(135deg, var(--violet), var(--gold)); display: grid; place-items: center; font-family: 'Space Grotesk'; font-weight: 700; color: #000; font-size: 26px; }
+  .team-name { font-family: 'Space Grotesk'; font-size: 17px; margin-bottom: 4px; font-weight: 600; }
+  .team-role { font-size: 12px; color: var(--text-3); font-family: 'JetBrains Mono'; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .team-bio { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+
+  .why-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .why-card {
+    padding: 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.3s;
+  }
+  .why-card:hover { transform: translateY(-4px); border-color: var(--border-2); }
+  .why-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(255,209,102,0.1)); border: 1px solid var(--border-2); margin-bottom: 18px; font-size: 22px; }
+  .why-title { font-family: 'Space Grotesk'; font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .why-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+
+  .fact-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .fact-item { padding: 36px 24px; background: var(--surface); text-align: center; }
+  .fact-value { font-family: 'Space Grotesk'; font-size: clamp(36px, 5vw, 52px); font-weight: 700; letter-spacing: -0.04em; line-height: 1; background: linear-gradient(135deg, var(--gold), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 10px; }
+  .fact-label { font-size: 13px; color: var(--text-2); }
+
+  @media (max-width: 900px) {
+    .founder-block { grid-template-columns: 1fr; padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="margin: 0 auto 20px;">ABOUT CITED.</div>
+    <h1>We build the <span class="gradient-text">measurement platform</span><br/>your competitors will buy from.</h1>
+    <p class="lead">Cited. is the UK's first dedicated Generative Engine Optimisation agency. We publish the research your category will quote, deliver the visibility model your board will adopt, and ship the programme that makes sure AI engines cite <em>your</em> brand first.</p>
+  </div>
+</section>
+
+<!-- Fact strip -->
+<section style="padding-top: 20px;">
+  <div class="container">
+    <div class="fact-strip">
+      <div class="fact-item"><div class="fact-value">#1</div><div class="fact-label">UK-dedicated GEO agency, est. 2024</div></div>
+      <div class="fact-item"><div class="fact-value">6</div><div class="fact-label">AI engines monitored in Cited Monitor</div></div>
+      <div class="fact-item"><div class="fact-value">100+</div><div class="fact-label">brands scored in our UK AI Visibility Index</div></div>
+      <div class="fact-item"><div class="fact-value">£3.2B+</div><div class="fact-label">combined revenue of client portfolio</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Beliefs -->
+<section>
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">WHAT WE BELIEVE</div>
+      <h2 class="section-title">Six beliefs that <span class="gradient-text">shape every engagement.</span></h2>
+      <p class="section-subtitle">These aren't marketing taglines. They're the rules we say "no" to clients over when something doesn't fit.</p>
+    </div>
+    <div class="belief-grid">
+      <div class="belief"><div class="belief-num">01 / BELIEF</div><h3>The brand that gets cited gets chosen.</h3><p>Over the next 36 months, every category will have one brand the AI engines quote first. That position is being decided now. We make sure it is yours.</p></div>
+      <div class="belief"><div class="belief-num">02 / BELIEF</div><h3>GEO is not SEO with a new label.</h3><p>Different measurement model, different authority strategy, different content architecture. Retrofitting an SEO agency to do GEO is the most expensive mistake in the 2026 CMO playbook.</p></div>
+      <div class="belief"><div class="belief-num">03 / BELIEF</div><h3>Measurement precedes strategy.</h3><p>You cannot own a position you cannot measure. We built Cited Monitor because no measurement layer existed. It's now the starting point of every engagement — and, eventually, your competitors will buy it from us.</p></div>
+      <div class="belief"><div class="belief-num">04 / BELIEF</div><h3>Evidence beats agency opinion.</h3><p>Every recommendation we make is grounded in data: Seer, Gartner, McKinsey, Forrester, Similarweb, our own index. Full sourcing on every claim. If we can't cite it, we don't say it.</p></div>
+      <div class="belief"><div class="belief-num">05 / BELIEF</div><h3>Regulated industries deserve regulated-grade work.</h3><p>Fintech, legaltech, healthtech — your legal team needs to defend every decision we make. We run programmes aligned to EU AI Act, GDPR, FCA, and sector-specific compliance, documented from day one.</p></div>
+      <div class="belief"><div class="belief-num">06 / BELIEF</div><h3>One cited brand per category. Period.</h3><p>Fast movers define the answer. Slow movers inherit what the algorithm decides. The cost of waiting compounds every quarter until the category is closed.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Founder -->
+<section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow gold">FOUNDER</div>
+      <h2 class="section-title">Built by an operator, <span class="gradient-text">not an agency veteran.</span></h2>
+    </div>
+    <div class="founder-block">
+      <div class="founder-avatar">AB</div>
+      <div>
+        <div class="founder-quote">"I spent 15 years watching agencies sell SEO as a one-size answer. GEO deserves its own agency, its own measurement layer, and its own rigour. So we built it."</div>
+        <div class="founder-meta">
+          <strong>Alex Beleaev — Founder & CEO</strong>
+          ex-operator in e-commerce and B2B SaaS. Built and sold two brands before founding Cited. Lives in London, works across UK / EU / Dubai. Speaks English, Russian, and Romanian.
+        </div>
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <a href="#" class="btn btn-outline btn-sm">LinkedIn →</a>
+          <a href="#" class="btn btn-outline btn-sm">Writing</a>
+          <a href="mailto:alex@cited.agency" class="btn btn-outline btn-sm">alex@cited.agency</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Team -->
+<section>
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">THE TEAM</div>
+      <h2 class="section-title">Small, senior, and <span class="gradient-text">operator-grade.</span></h2>
+      <p class="section-subtitle">Every engagement is led by an operator who has shipped a GEO programme before. No junior-heavy team. No account-manager buffer between you and the work.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">TK</div>
+        <div class="team-name">Tatiana K.</div>
+        <div class="team-role">HEAD OF STRATEGY</div>
+        <div class="team-bio">Former Head of Marketing at a £40M ARR SaaS. Leads Silver/Gold engagements across SaaS and fintech.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">MR</div>
+        <div class="team-name">M. Rodriguez</div>
+        <div class="team-role">CONTENT LEAD</div>
+        <div class="team-bio">15 years in editorial. Writes the citation-first content AI engines extract cleanly — at volume.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">DJ</div>
+        <div class="team-name">D. Jacobs</div>
+        <div class="team-role">DIGITAL PR LEAD</div>
+        <div class="team-bio">Tier-1 UK and EU press contacts. Secures the placements the AI training set actually quotes.</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">KL</div>
+        <div class="team-name">K. Lee</div>
+        <div class="team-role">DATA & ATTRIBUTION</div>
+        <div class="team-bio">Ex-analytics engineer at a public marketplace. Builds the custom revenue attribution layer Gold clients rely on.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why us -->
+<section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">WHY NOT A GENERAL SEO AGENCY?</div>
+      <h2 class="section-title">Six ways we're <span class="gradient-text">built differently.</span></h2>
+    </div>
+    <div class="why-row">
+      <div class="why-card"><div class="why-icon">🎯</div><div class="why-title">Dedicated, not retrofit</div><div class="why-desc">GEO is our only service. Every hour is spent on AI search — not split across legacy SEO, paid media, and creative.</div></div>
+      <div class="why-card"><div class="why-icon">📊</div><div class="why-title">Proprietary measurement</div><div class="why-desc">Cited Monitor tracks your brand across six AI engines in real time. Most "GEO agencies" still rely on manual prompt testing.</div></div>
+      <div class="why-card"><div class="why-icon">🇬🇧</div><div class="why-title">UK-first market intelligence</div><div class="why-desc">Our quarterly UK AI Search Visibility Index covers 100+ brands across 5 verticals. A view no US platform can match.</div></div>
+      <div class="why-card"><div class="why-icon">⚖️</div><div class="why-title">Regulated-industry depth</div><div class="why-desc">Programmes aligned to EU AI Act, GDPR, FCA, and sector compliance. Your legal team can defend every decision we make.</div></div>
+      <div class="why-card"><div class="why-icon">🧾</div><div class="why-title">Evidence-based</div><div class="why-desc">Every recommendation grounded in market data, not agency opinion. Full sourcing on every claim we make.</div></div>
+      <div class="why-card"><div class="why-icon">🏆</div><div class="why-title">The cited brand gets chosen</div><div class="why-desc">Over the next 36 months every category has one brand the AI engines quote first. We make sure it's yours.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-card">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">WORK WITH US</div>
+    <h2>The category's AI answer is <span class="gradient-text">being decided now.</span></h2>
+    <p>Book a 30-minute discovery call. Get your free AI Visibility Snapshot within 5 working days. Decide if we're the right partner.</p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact" class="btn btn-primary btn-lg">⚡ Book the call</a>
+      <a href="/cases" class="btn btn-outline btn-lg">See the results</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

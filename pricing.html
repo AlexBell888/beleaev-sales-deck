@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pricing — Bronze, Silver, Gold | Cited.</title>
+<meta name="description" content="Three tiers, each built for a different stage of brand maturity. £2.5K–£30K+/mo. No hidden fees. No bolt-on surprises. Pick yours." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .page-hero { padding: 140px 24px 60px; text-align: center; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .page-hero p { font-size: 18px; color: var(--text-2); max-width: 720px; margin: 0 auto; }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .tier {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 40px 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .tier.featured {
+    border: 2px solid var(--gold);
+    background: linear-gradient(180deg, rgba(255,209,102,0.06), rgba(255,255,255,0.01));
+    transform: scale(1.03);
+    box-shadow: 0 20px 60px -20px rgba(255,209,102,0.3);
+  }
+  .tier-badge {
+    position: absolute;
+    top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold);
+    color: #000;
+    padding: 6px 16px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .tier-icon { font-size: 36px; margin-bottom: 18px; line-height: 1; }
+  .tier-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .tier-desc { font-size: 14px; color: var(--text-2); margin-bottom: 24px; min-height: 40px; }
+  .tier-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .tier-price span { font-size: 15px; color: var(--text-2); font-weight: 400; }
+  .tier-term { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 28px; }
+
+  .tier-cta { margin-bottom: 28px; }
+  .tier-cta .btn { width: 100%; justify-content: center; }
+
+  .tier-features { list-style: none; flex: 1; }
+  .tier-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    font-size: 14px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+  .tier-features li::before {
+    content: '✓';
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    margin-top: 2px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(255,209,102,0.15);
+    color: var(--gold);
+  }
+  .tier-features li.unavailable { opacity: 0.35; }
+  .tier-features li.unavailable::before { content: '—'; background: transparent; color: var(--text-3); }
+
+  .tier-features-title {
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tier-best {
+    margin-top: 20px;
+    padding: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .tier-best strong { display: block; font-size: 11px; font-family: 'JetBrains Mono'; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px; font-weight: 500; }
+  .tier-best span { font-size: 13px; color: var(--text-2); line-height: 1.5; }
+
+  /* Compare table */
+  .compare-wrap { overflow-x: auto; margin-top: 80px; }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    min-width: 680px;
+  }
+  .compare-table th, .compare-table td { padding: 18px 20px; text-align: left; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .compare-table th { font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px; background: rgba(255,255,255,0.02); }
+  .compare-table th.gold-col { background: linear-gradient(180deg, rgba(255,209,102,0.12), transparent); color: var(--gold); }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { color: var(--text-2); font-weight: 500; }
+  .compare-table td.gold-cell { color: var(--gold); font-weight: 600; }
+
+  .faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 820px; margin: 0 auto; }
+  .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .faq-item[open] { border-color: var(--border-2); background: var(--surface-2); }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 22px 24px; display: flex; justify-content: space-between; align-items: center; font-family: 'Space Grotesk'; font-weight: 500; font-size: 16px; gap: 20px; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: '+'; font-size: 24px; color: var(--gold); font-weight: 300; transition: transform 0.3s; flex-shrink: 0; }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-body { padding: 0 24px 24px; color: var(--text-2); font-size: 14.5px; line-height: 1.7; }
+
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .tier.featured { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">PRICING · 2026</div>
+    <h1>Three tiers.<br/><span class="gradient-text">Pick your ambition.</span></h1>
+    <p>No enterprise maze. No procurement eight-stage gate. Fixed monthly fees, minimum terms, transparent scope. Pick the tier that fits your category intensity and brand maturity.</p>
+  </div>
+</section>
+
+<section style="padding-top: 20px;">
+  <div class="container">
+    <div class="pricing-grid">
+
+      <!-- BRONZE -->
+      <div class="tier">
+        <div class="tier-icon">🥉</div>
+        <div class="tier-name">Bronze</div>
+        <div class="tier-desc">Foundation tier — for brands getting serious about AI search for the first time.</div>
+        <div class="tier-price">£2.5K – £5K<span>/mo</span></div>
+        <div class="tier-term">3-MONTH MINIMUM</div>
+        <div class="tier-cta">
+          <a href="/contact?tier=bronze" class="btn btn-outline">Start with Bronze</a>
+        </div>
+        <div class="tier-features-title">INCLUDES</div>
+        <ul class="tier-features">
+          <li>AI Visibility Baseline Audit across 6 engines</li>
+          <li>Entity & schema optimisation on 20 priority pages</li>
+          <li>Cited Monitor dashboard for 1 AI engine</li>
+          <li>Monthly 60-minute strategy call</li>
+          <li>Quarterly performance report</li>
+          <li>Written competitive benchmark</li>
+          <li class="unavailable">Multi-engine monitoring (6 engines)</li>
+          <li class="unavailable">Ongoing content production</li>
+          <li class="unavailable">Digital PR placements</li>
+          <li class="unavailable">Custom revenue attribution</li>
+          <li class="unavailable">Dedicated team</li>
+        </ul>
+        <div class="tier-best">
+          <strong>Best fit</strong>
+          <span>SMB and mid-market. Single-market brands. Challenger brands entering a new category.</span>
+        </div>
+      </div>
+
+      <!-- SILVER (featured) -->
+      <div class="tier featured">
+        <div class="tier-badge">Most Popular</div>
+        <div class="tier-icon">🥈</div>
+        <div class="tier-name">Silver</div>
+        <div class="tier-desc">Growth tier — for brands competing for the top citation slot in their category.</div>
+        <div class="tier-price">£5K – £10K<span>/mo</span></div>
+        <div class="tier-term">6-MONTH MINIMUM</div>
+        <div class="tier-cta">
+          <a href="/contact?tier=silver" class="btn btn-primary">Start with Silver</a>
+        </div>
+        <div class="tier-features-title">EVERYTHING IN BRONZE, PLUS</div>
+        <ul class="tier-features">
+          <li>Cited Monitor across all 6 AI engines</li>
+          <li>Prompt-level citation analytics</li>
+          <li>8–12 AI-optimised content pieces / month</li>
+          <li>4–6 digital PR & authority placements / quarter</li>
+          <li>Citation monitoring across 50+ sources</li>
+          <li>Weekly strategy call</li>
+          <li>Dedicated Slack / Teams channel</li>
+          <li>Monthly executive report</li>
+          <li>Standard revenue attribution</li>
+          <li class="unavailable">Dedicated GEO team</li>
+          <li class="unavailable">Multi-market / localisation</li>
+        </ul>
+        <div class="tier-best">
+          <strong>Best fit</strong>
+          <span>Mid-market to upper mid-market. Regulated sectors (fintech, legaltech, healthtech). B2B SaaS scaling beyond £5M ARR. Consumer brands with multi-product portfolios.</span>
+        </div>
+      </div>
+
+      <!-- GOLD -->
+      <div class="tier">
+        <div class="tier-icon">🥇</div>
+        <div class="tier-name">Gold</div>
+        <div class="tier-desc">Enterprise tier — for brands where AI visibility is a C-suite priority.</div>
+        <div class="tier-price">£10K – £30K+<span>/mo</span></div>
+        <div class="tier-term">12-MONTH MINIMUM</div>
+        <div class="tier-cta">
+          <a href="/contact?tier=gold" class="btn btn-outline">Start with Gold</a>
+        </div>
+        <div class="tier-features-title">EVERYTHING IN SILVER, PLUS</div>
+        <ul class="tier-features">
+          <li>Dedicated GEO team (strategist, content lead, PR lead, analyst)</li>
+          <li>Multi-market & multi-language up to 5 markets</li>
+          <li>15–25 content pieces / month + localisation</li>
+          <li>8–12 digital PR placements / quarter</li>
+          <li>Governance framework: EU AI Act, GDPR, FCA, sector regulation</li>
+          <li>Custom revenue attribution model (CRM + analytics)</li>
+          <li>Quarterly executive workshops</li>
+          <li>In-house team enablement programme</li>
+          <li>Private access to Cited Intelligence sector data</li>
+          <li>Monthly executive dashboard</li>
+          <li>Quarterly board-ready pack</li>
+        </ul>
+        <div class="tier-best">
+          <strong>Best fit</strong>
+          <span>FTSE 350. Global 2000. PE-backed scale-ups £20M+ ARR. Regulated verticals. Multi-brand portfolios. International expansion programmes.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Compare table -->
+<section style="padding-top: 40px;">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">SIDE BY SIDE</div>
+      <h2 class="section-title">Compare <span class="gradient-text">every line.</span></h2>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Bronze</th>
+            <th>Silver</th>
+            <th class="gold-col">Gold ★</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monthly fee</td><td>£2.5K – £5K</td><td>£5K – £10K</td><td class="gold-cell">£10K – £30K+</td></tr>
+          <tr><td>Minimum term</td><td>3 months</td><td>6 months</td><td class="gold-cell">12 months</td></tr>
+          <tr><td>AI engines tracked</td><td>1</td><td>6</td><td class="gold-cell">6 + custom</td></tr>
+          <tr><td>Content pieces / month</td><td>Audit only</td><td>8–12</td><td class="gold-cell">15–25 + localisation</td></tr>
+          <tr><td>Digital PR / quarter</td><td>—</td><td>4–6</td><td class="gold-cell">8–12</td></tr>
+          <tr><td>Markets / languages</td><td>1</td><td>1–2</td><td class="gold-cell">Up to 5</td></tr>
+          <tr><td>Governance & compliance</td><td>—</td><td>—</td><td class="gold-cell">Full framework</td></tr>
+          <tr><td>Revenue attribution</td><td>—</td><td>Standard</td><td class="gold-cell">Custom model</td></tr>
+          <tr><td>Strategy cadence</td><td>Monthly</td><td>Weekly</td><td class="gold-cell">Embedded team</td></tr>
+          <tr><td>Board reporting</td><td>Quarterly PDF</td><td>Monthly</td><td class="gold-cell">Board pack</td></tr>
+          <tr><td>Cited Intelligence sector data</td><td>—</td><td>—</td><td class="gold-cell">Private access</td></tr>
+          <tr><td>Dedicated Slack / Teams</td><td>—</td><td>✓</td><td class="gold-cell">Full team channel</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">PRICING FAQ</div>
+      <h2 class="section-title">Questions procurement will ask.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>Why are prices shown as ranges, not fixed?</summary>
+        <div class="faq-body">Each engagement differs by category complexity, competitor intensity, content volume, and regulatory depth. The range brackets 90% of engagements in that tier. We price inside the range on the proposal, based on the scope we agreed on the discovery call. No surprises later.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can we cancel mid-term?</summary>
+        <div class="faq-body">Minimum terms exist because meaningful GEO outcomes take 90 days minimum to measure. You can exit after the minimum term with 30 days' written notice. You keep the dashboard access until the notice period ends. Contractually, you own every asset we ship during the engagement.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What if we already have an SEO agency?</summary>
+        <div class="faq-body">We work alongside SEO agencies all the time — technical SEO and GEO overlap on schema, page architecture, and core content work. We take the AI layer; your SEO agency keeps the blue-link layer. We'll happily document the handover so nothing duplicates.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Is there a setup fee?</summary>
+        <div class="faq-body">No. The first month's fee covers the baseline audit, discovery workshops, dashboard provisioning, and content kickoff. If you prefer a one-off "sprint" engagement (audit + 3-month content programme, no minimum term), we can structure that too — ask on the discovery call.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer a trial?</summary>
+        <div class="faq-body">Yes — the AI Visibility Snapshot is free and takes 5 working days. A 4-page report showing where you stand across the six AI engines, against your three nearest competitors. If you decide not to proceed, the report is yours to keep.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What about enterprise procurement requirements?</summary>
+        <div class="faq-body">For Gold engagements we support vendor onboarding, DPIAs, GDPR/EU AI Act documentation, SOC 2 evidence, and the standard enterprise vendor questionnaire. Our legal team has sat through the Fortune 500 onboarding loop — we know the ropes.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-card">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">PICK A TIER</div>
+    <h2>Not sure which tier?<br/><span class="gradient-text">Start with the free Snapshot.</span></h2>
+    <p>We'll recommend Bronze, Silver, or Gold based on your category intensity, ambition, and competitor positioning. No pressure to upgrade.</p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact" class="btn btn-primary btn-lg">⚡ Book the free Snapshot</a>
+      <a href="/cases" class="btn btn-outline btn-lg">See the results</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

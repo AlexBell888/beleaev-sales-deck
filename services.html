@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — The 5-Layer GEO Programme | Cited.</title>
+<meta name="description" content="AI Visibility Audit, Entity & Knowledge Graph, AI-Optimised Content, Digital PR, Cross-Platform Strategy. The only services we sell — because GEO is the only thing we do." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .page-hero { padding: 140px 24px 70px; text-align: center; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .page-hero p { font-size: 18px; color: var(--text-2); max-width: 720px; margin: 0 auto; }
+
+  .layer-block {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+    padding: 56px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .layer-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(70px, 9vw, 120px);
+    font-weight: 700;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .layer-content h2 { font-size: clamp(26px, 3vw, 36px); margin-bottom: 16px; letter-spacing: -0.02em; }
+  .layer-content > p.lead { font-size: 17px; color: var(--text-2); line-height: 1.6; margin-bottom: 28px; max-width: 720px; }
+
+  .layer-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .layer-feature {
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .layer-feature strong { display: block; color: var(--gold); font-size: 12px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+
+  .timeline-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .timeline-card { padding: 32px 28px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); position: relative; }
+  .timeline-card::before { content:''; position: absolute; top:0; left:0; right:0; height: 3px; border-radius: 3px 3px 0 0; }
+  .timeline-card.tc-1::before { background: var(--violet); }
+  .timeline-card.tc-2::before { background: linear-gradient(90deg, var(--violet), var(--gold)); }
+  .timeline-card.tc-3::before { background: var(--gold); }
+  .timeline-card h4 { font-size: 20px; margin-bottom: 8px; }
+  .timeline-tag { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; display: block; }
+  .timeline-card ul { list-style: none; }
+  .timeline-card ul li { padding: 8px 0; padding-left: 22px; position: relative; font-size: 14px; color: var(--text-2); }
+  .timeline-card ul li::before { content: '→'; position: absolute; left: 0; top: 8px; color: var(--gold); }
+
+  @media (max-width: 900px) {
+    .layer-block { grid-template-columns: 1fr; gap: 20px; }
+    .timeline-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow" style="margin: 0 auto 20px;">THE 5-LAYER GEO PROGRAMME</div>
+    <h1>Five layers.<br/>One cited brand: <span class="gradient-text">yours.</span></h1>
+    <p>Every engagement combines the five layers in a sequence tuned to your category, speed-to-citation, and regulatory context. No retrofit. No bolt-on. GEO is the only thing we do.</p>
+  </div>
+</section>
+
+<section style="padding-top: 20px;">
+  <div class="container">
+
+    <!-- LAYER 1 -->
+    <div class="layer-block" id="layer-1">
+      <div class="layer-num">01</div>
+      <div class="layer-content">
+        <div class="eyebrow">AI VISIBILITY AUDIT & MONITORING</div>
+        <h2>We measure what nobody else can.</h2>
+        <p class="lead">A proprietary baseline across <strong>six AI engines</strong>: ChatGPT, Perplexity, Google AI Overviews, Gemini, Microsoft Copilot, and Claude. We score your Share of Model, citation frequency, prompt coverage, and competitive position on every priority query in your category. Then we keep tracking — every day, not once a quarter.</p>
+        <div class="layer-features">
+          <div class="layer-feature"><strong>Baseline</strong>Full scorecard across six engines + three nearest competitors.</div>
+          <div class="layer-feature"><strong>Cited Monitor</strong>Daily citation tracking dashboard. Prompt-level detail on Silver+.</div>
+          <div class="layer-feature"><strong>Share of Model</strong>The metric your board will adopt as a CMO scorecard KPI.</div>
+          <div class="layer-feature"><strong>Gap analysis</strong>Every query where a competitor outranks you in AI citation — ranked by impact.</div>
+        </div>
+        <a href="/contact" class="btn btn-outline">Get your free baseline →</a>
+      </div>
+    </div>
+
+    <!-- LAYER 2 -->
+    <div class="layer-block" id="layer-2">
+      <div class="layer-num">02</div>
+      <div class="layer-content">
+        <div class="eyebrow">ENTITY & KNOWLEDGE GRAPH</div>
+        <h2>AI engines read structured data, not prose.</h2>
+        <p class="lead">Your brand needs a machine-readable identity that AI systems can verify, disambiguate, and cite. We implement schema markup across the priority page set, reinforce entity signals via Wikidata and Wikipedia references, align knowledge panels, and fix the technical fabric that lets AI engines recognise you reliably — not guess.</p>
+        <div class="layer-features">
+          <div class="layer-feature"><strong>Schema</strong>Organisation, Product, Article, FAQ, HowTo, Review — the schema types AI engines actually ingest.</div>
+          <div class="layer-feature"><strong>Wikidata & Wikipedia</strong>Citable entity records. Structured facts the models trust.</div>
+          <div class="layer-feature"><strong>Knowledge Panels</strong>Google, Bing. Aligned across search, AI Overviews, and Copilot.</div>
+          <div class="layer-feature"><strong>Entity disambiguation</strong>Fix cases where AI confuses you with a competitor, a dormant brand, or a lookalike.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYER 3 -->
+    <div class="layer-block" id="layer-3">
+      <div class="layer-num">03</div>
+      <div class="layer-content">
+        <div class="eyebrow">AI-OPTIMISED CONTENT</div>
+        <h2>Content engineered for citation, not only ranking.</h2>
+        <p class="lead">Traditional SEO content gets summarised and skipped. GEO content gets <em>quoted</em>. We write direct-answer blocks of 40–60 words, stats-rich data stories, FAQ clusters with precise question phrasing, listicle structures AI engines extract cleanly, and expert-quote assets that build authority. Published on your domain or distributed to earned placements.</p>
+        <div class="layer-features">
+          <div class="layer-feature"><strong>Direct-answer blocks</strong>40–60 words, written to be extracted into AI summaries verbatim.</div>
+          <div class="layer-feature"><strong>Data stories</strong>Original research, proprietary stats, citable numbers AI engines favour.</div>
+          <div class="layer-feature"><strong>FAQ clusters</strong>Hundreds of long-tail buyer questions mapped to structured answers.</div>
+          <div class="layer-feature"><strong>Expert quotes</strong>Named, verifiable experts. The authority signals AI ranks highest.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYER 4 -->
+    <div class="layer-block" id="layer-4">
+      <div class="layer-num">04</div>
+      <div class="layer-content">
+        <div class="eyebrow">DIGITAL PR & AUTHORITY ENGINEERING</div>
+        <h2>AI models index the sources they trust.</h2>
+        <p class="lead">We secure earned placements on the sources AI quotes when recommending brands: G2, Capterra, TripAdvisor, Wikipedia citations, tier-1 UK and EU media, sector trade press, and — critically — the <em>listicles and comparison pages</em> AI systems quote directly in their answers. Authority is engineered, not hoped for.</p>
+        <div class="layer-features">
+          <div class="layer-feature"><strong>Review platforms</strong>G2, Capterra, Trustpilot, Gartner Peer Insights. The sources LLMs cite.</div>
+          <div class="layer-feature"><strong>Tier-1 media</strong>FT, Sifted, TechCrunch, Reuters, sector trade press. UK + EU focus.</div>
+          <div class="layer-feature"><strong>Listicles</strong>"Best X in 2026" articles — the template AI engines quote verbatim.</div>
+          <div class="layer-feature"><strong>Wikipedia citations</strong>The highest-authority signal in an AI training dataset.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LAYER 5 -->
+    <div class="layer-block" id="layer-5" style="border-bottom: none;">
+      <div class="layer-num">05</div>
+      <div class="layer-content">
+        <div class="eyebrow">CROSS-PLATFORM STRATEGY & REPORTING</div>
+        <h2>Six engines. Six algorithms. One unified view.</h2>
+        <p class="lead">ChatGPT favours citations from specific sources. Perplexity weights freshness differently. Google AI Overviews privileges schema. Each engine has its own behaviour. We tailor the strategy per engine and report it back in a single unified dashboard — so your board sees one KPI, not six.</p>
+        <div class="layer-features">
+          <div class="layer-feature"><strong>Monthly dashboard</strong>Exec-level. Share of Model, citation trends, pipeline contribution.</div>
+          <div class="layer-feature"><strong>Quarterly board pack</strong>PDF + presentation-ready. The version your CEO will actually read.</div>
+          <div class="layer-feature"><strong>Revenue attribution</strong>Custom tracking built to your CRM. The one thing in-house teams can never figure out.</div>
+          <div class="layer-feature"><strong>Governance framework</strong>EU AI Act, GDPR, FCA, sector compliance. Legal can defend every decision.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow gold">WHAT YOU SEE, WHEN YOU SEE IT</div>
+      <h2 class="section-title">The 12-month <span class="gradient-text">outcome map.</span></h2>
+      <p class="section-subtitle">Three measurement windows. Each one tied to a specific KPI your board can defend.</p>
+    </div>
+    <div class="timeline-grid">
+      <div class="timeline-card tc-1">
+        <span class="timeline-tag">Months 1–3</span>
+        <h4>Baseline + First Wave</h4>
+        <ul>
+          <li>Audit completed across six AI engines</li>
+          <li>Visibility gaps mapped and prioritised</li>
+          <li>First content and authority wave shipped</li>
+          <li>Cited Monitor dashboard live</li>
+          <li>Competitor benchmark quantified</li>
+        </ul>
+      </div>
+      <div class="timeline-card tc-2">
+        <span class="timeline-tag">Months 4–6</span>
+        <h4>Citation Lift + Attribution</h4>
+        <ul>
+          <li>Citation frequency growing on priority queries</li>
+          <li>First AI-referred traffic attributed in analytics</li>
+          <li>Custom GA segments report AI channel</li>
+          <li>Schema and entity work fully indexed</li>
+          <li>Digital PR placements indexed in AI training data</li>
+        </ul>
+      </div>
+      <div class="timeline-card tc-3">
+        <span class="timeline-tag">Months 7–12</span>
+        <h4>Category Ownership</h4>
+        <ul>
+          <li>Top-three AI citation on strategic queries</li>
+          <li>Measurable pipeline / revenue contribution</li>
+          <li>Share of Model is a board-level KPI</li>
+          <li>Competitors start asking who your agency is</li>
+          <li>Governance framework audit-ready</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-card">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">READY TO START</div>
+    <h2>Book a 30-minute discovery call.<br/>Leave with a <span class="gradient-text">free AI Snapshot.</span></h2>
+    <p>We'll learn your category, map your visibility gaps, and send you a 4-page report within 5 working days. If you decide not to proceed, the report is yours to keep.</p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact" class="btn btn-primary btn-lg">⚡ Book the call</a>
+      <a href="/pricing" class="btn btn-outline btn-lg">See packages</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

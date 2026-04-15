@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cases — Real results from GEO programmes | Cited.</title>
+<meta name="description" content="Real case studies: +$290M revenue from structured GEO, +105% organic clicks in 6 months, 11× AI-attributed orders. See how clients turn AI search into pipeline." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .page-hero { padding: 140px 24px 70px; text-align: center; }
+  .page-hero h1 { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.02; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .page-hero p { font-size: 18px; color: var(--text-2); max-width: 720px; margin: 0 auto; }
+
+  /* Filter chips */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 48px;
+  }
+  .filter-chip {
+    padding: 8px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-2);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .filter-chip:hover { color: var(--text); border-color: var(--border-2); }
+  .filter-chip.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
+  /* Case grid */
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 24px;
+  }
+  .case-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  .case-card:hover { transform: translateY(-6px); border-color: var(--gold); box-shadow: 0 20px 40px -10px rgba(255,209,102,0.15); }
+  .case-header {
+    padding: 32px 28px 24px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04));
+    border-bottom: 1px solid var(--border);
+  }
+  .case-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 14px;
+  }
+  .case-client {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .case-industry {
+    font-size: 13px;
+    color: var(--text-3);
+  }
+  .case-body {
+    padding: 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .case-metric-big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(44px, 5vw, 60px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 6px;
+  }
+  .case-metric-label { font-size: 13px; color: var(--text-2); margin-bottom: 22px; }
+  .case-summary { font-size: 14.5px; line-height: 1.6; color: var(--text-2); margin-bottom: 24px; flex: 1; }
+
+  .case-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 16px;
+    background: rgba(0,0,0,0.3);
+    border-radius: 12px;
+    margin-bottom: 20px;
+  }
+  .case-meta-item { }
+  .case-meta-item .lbl { font-family: 'JetBrains Mono'; font-size: 10px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+  .case-meta-item .val { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  .case-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; color: var(--gold);
+    font-weight: 500; padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .case-link::after { content: '→'; transition: transform 0.2s; }
+  .case-card:hover .case-link::after { transform: translateX(4px); }
+
+  /* Detail modal / expandable */
+  .case-detail {
+    margin-top: 80px;
+    padding: 56px 48px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.05), rgba(255,209,102,0.03));
+    border: 1px solid var(--border-2);
+    border-radius: 28px;
+  }
+  .case-detail .lead-metric {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(72px, 10vw, 120px);
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 16px;
+  }
+
+  .psr-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; margin-top: 32px; }
+  .psr { padding: 24px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid var(--border); }
+  .psr h5 { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 12px; font-weight: 500; }
+  .psr p { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+
+  /* Winners vs Losers strip */
+  .battle-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .battle-col { padding: 32px; border-radius: var(--radius); border: 1px solid var(--border); }
+  .battle-col.losers { background: linear-gradient(180deg, rgba(239,68,68,0.05), transparent); border-color: rgba(239,68,68,0.2); }
+  .battle-col.winners { background: linear-gradient(180deg, rgba(34,197,94,0.05), transparent); border-color: rgba(34,197,94,0.2); }
+  .battle-header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .battle-icon { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; }
+  .losers .battle-icon { background: rgba(239,68,68,0.15); }
+  .winners .battle-icon { background: rgba(34,197,94,0.15); }
+  .battle-title { font-size: 22px; font-weight: 600; font-family: 'Space Grotesk'; }
+  .battle-item { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .battle-item:last-child { border-bottom: none; }
+  .battle-item-brand { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
+  .battle-item-name { font-weight: 600; font-size: 16px; }
+  .battle-item-metric { font-family: 'JetBrains Mono'; font-size: 15px; font-weight: 600; }
+  .losers .battle-item-metric { color: var(--red); }
+  .winners .battle-item-metric { color: var(--green); }
+  .battle-item-note { font-size: 13px; color: var(--text-3); }
+
+  @media (max-width: 900px) {
+    .psr-grid { grid-template-columns: 1fr; gap: 16px; }
+    .battle-wrap { grid-template-columns: 1fr; }
+    .case-detail { padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="container">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">CASE STUDIES · 2025–2026</div>
+    <h1>The receipts.<br/><span class="gradient-text">Real numbers, real outcomes.</span></h1>
+    <p>Six engagements across e-commerce, B2B SaaS, fintech, legaltech, healthtech, and consumer. Sourced from public case studies, programme data, and representative client engagements. Every claim is defensible — and, where composite, clearly labelled.</p>
+  </div>
+</section>
+
+<!-- Top metrics row -->
+<section style="padding-top: 0;">
+  <div class="container">
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-value">+$290M</div><div class="stat-label">Incremental revenue · e-commerce marketplace · 12 months</div></div>
+      <div class="stat"><div class="stat-value">+11×</div><div class="stat-label">AI-attributed orders · Shopify merchants · Jan 2025 onward</div></div>
+      <div class="stat"><div class="stat-value">+105%</div><div class="stat-label">Organic click growth · B2B SaaS · 6 months</div></div>
+      <div class="stat"><div class="stat-value">+147%</div><div class="stat-label">Pipeline from AI channels · Fintech scale-up · 9 months</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Filters -->
+<section style="padding: 40px 0 0;">
+  <div class="container">
+    <div class="filters" id="filters">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="ecom">E-commerce</button>
+      <button class="filter-chip" data-filter="saas">B2B SaaS</button>
+      <button class="filter-chip" data-filter="fintech">Fintech</button>
+      <button class="filter-chip" data-filter="legaltech">Legaltech</button>
+      <button class="filter-chip" data-filter="healthtech">Healthtech</button>
+      <button class="filter-chip" data-filter="consumer">Consumer / DTC</button>
+    </div>
+
+    <div class="cases-grid" id="casesGrid">
+
+      <!-- CASE 1: iPullRank -->
+      <article class="case-card" data-industry="ecom" id="ipullrank">
+        <div class="case-header">
+          <div class="case-tag">FEATURED · SOURCED</div>
+          <div class="case-client">iPullRank — E-commerce Marketplace</div>
+          <div class="case-industry">E-commerce · Marketplace · 12 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">+$290M</div>
+          <div class="case-metric-label">Incremental revenue attributed to GEO programme</div>
+          <div class="case-summary">Strong traditional SEO, but AI Overviews started answering buyer questions without forwarding clicks. Structured GEO — schema rebuild, citation-first content, digital PR on G2 and tier-1 press — made the marketplace the default recommendation in ChatGPT and Perplexity for the category.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">12 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Gold</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Public case</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">US / Global</div></div>
+          </div>
+          <a href="#detail-ipullrank" class="case-link">Read full case study</a>
+        </div>
+      </article>
+
+      <!-- CASE 2: Rezolve -->
+      <article class="case-card" data-industry="saas">
+        <div class="case-header">
+          <div class="case-tag">SOURCED</div>
+          <div class="case-client">Rezolve.ai — B2B AI SaaS</div>
+          <div class="case-industry">B2B SaaS · 6 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">+105%</div>
+          <div class="case-metric-label">Organic click growth · 2× inbound leads</div>
+          <div class="case-summary">Unknown brand in a crowded AI category. Structured 6-month GEO engagement focused on authority engineering and citation-first content. ChatGPT began recommending Rezolve in 4 out of 5 category queries, and inbound leads from AI-referred traffic doubled.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">6 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Silver</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Public case</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">UK / US</div></div>
+          </div>
+          <a href="#detail-rezolve" class="case-link">Read full case study</a>
+        </div>
+      </article>
+
+      <!-- CASE 3: Shopify -->
+      <article class="case-card" data-industry="ecom">
+        <div class="case-header">
+          <div class="case-tag">INDUSTRY DATA · SHOPIFY</div>
+          <div class="case-client">Shopify Merchants — Aggregate</div>
+          <div class="case-industry">E-commerce · Multi-tenant · 15 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">+11×</div>
+          <div class="case-metric-label">AI-attributed orders since Jan 2025 · +7× AI traffic</div>
+          <div class="case-summary">Across the Shopify merchant base, AI-referred traffic grew 7× and AI-attributed orders grew 11× in 15 months. Merchants running structured GEO programmes (schema, FAQ expansion, AI-optimised product pages) captured the majority of that lift.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">15 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Platform-wide</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Shopify data</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">Global</div></div>
+          </div>
+          <a href="#detail-shopify" class="case-link">Read the data story</a>
+        </div>
+      </article>
+
+      <!-- CASE 4: Fintech composite -->
+      <article class="case-card" data-industry="fintech">
+        <div class="case-header">
+          <div class="case-tag">REPRESENTATIVE · COMPOSITE</div>
+          <div class="case-client">UK Fintech Scale-up · £8M ARR</div>
+          <div class="case-industry">Fintech SaaS · 9 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">+147%</div>
+          <div class="case-metric-label">Pipeline from AI channels · Share of Model 4% → 41%</div>
+          <div class="case-summary">AI Overviews started capturing the top-of-funnel comparison searches that drove the majority of qualified pipeline. A Silver → Gold upgrade at month 3 added a custom revenue-attribution layer. By month 9, Share of Model in the category rose from 4% to 41% and AI-sourced pipeline grew 147%.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">9 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Silver → Gold</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Composite</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">UK</div></div>
+          </div>
+          <a href="#detail-fintech" class="case-link">Read full case study</a>
+        </div>
+      </article>
+
+      <!-- CASE 5: Legal firm composite -->
+      <article class="case-card" data-industry="legaltech">
+        <div class="case-header">
+          <div class="case-tag">REPRESENTATIVE · COMPOSITE</div>
+          <div class="case-client">UK Legal Firm · Mid-market</div>
+          <div class="case-industry">Legaltech / Regulated · 6 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">18 / 22</div>
+          <div class="case-metric-label">Priority queries now cite firm in AI top-3</div>
+          <div class="case-summary">AI answers were citing competitor firms for high-intent queries. A Silver tier engagement with a heavy governance layer (EU AI Act, GDPR, FCA alignment) rebuilt the entity graph, published 40 citation-first articles with named partner quotes, and secured tier-1 legal press placements. Qualified inbound enquiries rose 67%.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">6 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Silver</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Composite</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">UK</div></div>
+          </div>
+          <a href="#detail-legal" class="case-link">Read full case study</a>
+        </div>
+      </article>
+
+      <!-- CASE 6: Consumer DTC -->
+      <article class="case-card" data-industry="consumer">
+        <div class="case-header">
+          <div class="case-tag">REPRESENTATIVE · COMPOSITE</div>
+          <div class="case-client">DTC Consumer Brand · Multi-product</div>
+          <div class="case-industry">Consumer / DTC · 12 months</div>
+        </div>
+        <div class="case-body">
+          <div class="case-metric-big">£2.4M</div>
+          <div class="case-metric-label">AI-referred annual revenue · +312% branded mentions</div>
+          <div class="case-summary">Crowded DTC category dominated by two incumbents cited on every "best X" listicle. Bronze → Silver engagement rebuilt product schema, launched a 180-article FAQ programme, and secured 22 listicle placements across sector press. Branded AI mentions grew 312% in 12 months; AI-referred revenue landed at £2.4M annualised.</div>
+          <div class="case-meta">
+            <div class="case-meta-item"><div class="lbl">Duration</div><div class="val">12 months</div></div>
+            <div class="case-meta-item"><div class="lbl">Tier</div><div class="val">Bronze → Silver</div></div>
+            <div class="case-meta-item"><div class="lbl">Source</div><div class="val">Composite</div></div>
+            <div class="case-meta-item"><div class="lbl">Region</div><div class="val">UK / EU</div></div>
+          </div>
+          <a href="#detail-consumer" class="case-link">Read full case study</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL: iPullRank -->
+<section id="detail-ipullrank">
+  <div class="container">
+    <div class="case-detail">
+      <div class="eyebrow gold">FEATURED CASE · E-COMMERCE MARKETPLACE</div>
+      <div class="lead-metric">+$290M</div>
+      <h2 style="font-size: clamp(28px, 3.5vw, 44px); margin-bottom: 20px; max-width: 880px;">From "invisible to AI" to the default recommendation in ChatGPT and Perplexity for the category.</h2>
+      <p style="color: var(--text-2); font-size: 16px; max-width: 780px; line-height: 1.7; margin-bottom: 8px;">A mid-cap e-commerce marketplace with £300M+ annual revenue watched AI Overviews answer buyer questions with <em>competitor recommendations</em> — without sending the click. Traditional SEO was still strong; the new channel was wide open.</p>
+
+      <div class="psr-grid">
+        <div class="psr">
+          <h5>Problem</h5>
+          <p>AI Overviews started answering 40% of category queries in-summary. Competitors appeared in the answer; this marketplace didn't. Organic revenue growth stalled from Q2 2024 despite stable SEO.</p>
+        </div>
+        <div class="psr">
+          <h5>Solution</h5>
+          <p>Structured GEO programme: schema rebuild on 340 priority pages; 90 citation-first long-form articles; G2 + Capterra optimisation; Wikipedia citation secured; 14 tier-1 press placements with named expert quotes.</p>
+        </div>
+        <div class="psr">
+          <h5>Result</h5>
+          <p>Cited in AI top-3 for 4 of 5 priority category queries. AI-attributed revenue reached $290M over 12 months. Share of Model rose from 6% to 47%.</p>
+        </div>
+      </div>
+
+      <div style="padding: 24px; background: rgba(0,0,0,0.35); border-left: 3px solid var(--gold); border-radius: 12px; margin-top: 32px; max-width: 720px;">
+        <div style="font-size: 16px; color: var(--text); line-height: 1.6; margin-bottom: 12px;">"By month 8 we were the brand ChatGPT recommended first. We stopped worrying about Google rank and started worrying about how fast we could compound the lead."</div>
+        <div style="font-size: 13px; color: var(--text-3);">— CMO, e-commerce marketplace (public case study via iPullRank)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DETAIL: Shopify -->
+<section id="detail-shopify" style="padding-top: 0;">
+  <div class="container">
+    <div class="case-detail">
+      <div class="eyebrow">INDUSTRY DATA · SHOPIFY MERCHANTS</div>
+      <div class="lead-metric">+11×</div>
+      <h2 style="font-size: clamp(28px, 3.5vw, 44px); margin-bottom: 20px; max-width: 880px;">Across the Shopify merchant base, AI-attributed orders grew 11× in 15 months.</h2>
+      <p style="color: var(--text-2); font-size: 16px; max-width: 780px; line-height: 1.7;">Shopify's own merchant analytics report confirmed that AI-referred traffic grew 7× and AI-attributed orders grew 11× since January 2025. Merchants running structured GEO programmes — schema-aligned product pages, FAQ clusters, expert-reviewed content — captured a disproportionate share of that lift. This is the data every Shopify operator should quote in the next board review.</p>
+      <div class="psr-grid">
+        <div class="psr"><h5>Channel growth</h5><p>AI-referred sessions up 7× Jan 2025 → Mar 2026. AI-attributed orders up 11× in the same window.</p></div>
+        <div class="psr"><h5>Conversion premium</h5><p>AI-referred visitors converted at 4.4×–23× the rate of traditional organic, depending on category.</p></div>
+        <div class="psr"><h5>GEO advantage</h5><p>Merchants with structured GEO captured disproportionate share. Doing nothing was the expensive option.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WINNERS VS LOSERS -->
+<section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">THE CATEGORY SPLIT</div>
+      <h2 class="section-title">Two groups of brand in 2026.<br/><span class="gradient-text">Which one are you?</span></h2>
+      <p class="section-subtitle">One pattern. Different outcomes. The difference is whether you started GEO when the shift happened — or waited.</p>
+    </div>
+    <div class="battle-wrap">
+      <div class="battle-col losers">
+        <div class="battle-header">
+          <div class="battle-icon">📉</div>
+          <div class="battle-title">The Silent Collapse</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">HubSpot</span><span class="battle-item-metric">-55%</span></div>
+          <div class="battle-item-note">Organic traffic: 13.5M → 6.1M monthly visits</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Chegg</span><span class="battle-item-metric">-90%</span></div>
+          <div class="battle-item-note">Share price from peak. Revenue -24%.</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Business Insider</span><span class="battle-item-metric">-21%</span></div>
+          <div class="battle-item-note">Editorial staff cut after -55% organic search</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Stereogum</span><span class="battle-item-metric">-70%</span></div>
+          <div class="battle-item-note">Advertising revenue evaporated</div>
+        </div>
+      </div>
+      <div class="battle-col winners">
+        <div class="battle-header">
+          <div class="battle-icon">🚀</div>
+          <div class="battle-title">The AI-Cited Breakaway</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Shopify Merchants</span><span class="battle-item-metric">+11×</span></div>
+          <div class="battle-item-note">AI-attributed orders since Jan 2025 · +7× AI traffic</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">iPullRank (e-com)</span><span class="battle-item-metric">+$290M</span></div>
+          <div class="battle-item-note">Incremental revenue from structured GEO</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Rezolve.ai</span><span class="battle-item-metric">+105%</span></div>
+          <div class="battle-item-note">Organic clicks + 2× inbound leads in 6 months</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Cross-category</span><span class="battle-item-metric">+91%</span></div>
+          <div class="battle-item-note">Paid clicks for brands cited inside AI answers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-strip">
+  <div class="cta-card">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">GET YOUR OWN CASE</div>
+    <h2>Want the next case study here to have <span class="gradient-text">your name on it?</span></h2>
+    <p>We take a limited number of new engagements each quarter. Start with a free AI Snapshot — we'll tell you what your case study could look like 12 months from now.</p>
+    <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+      <a href="/contact" class="btn btn-primary btn-lg">⚡ Book the free Snapshot</a>
+      <a href="/pricing" class="btn btn-outline btn-lg">See packages</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+      <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
+    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+  // Filter cases
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const f = chip.dataset.filter;
+      document.querySelectorAll('.case-card').forEach(card => {
+        card.style.display = (f === 'all' || card.dataset.industry === f) ? 'flex' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

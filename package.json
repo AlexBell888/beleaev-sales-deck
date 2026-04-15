@@ -1,10 +1,10 @@
 {
-  "name": "beleaev-sales-deck",
-  "version": "1.0.0",
+  "name": "cited-agency-site",
+  "version": "2.0.0",
   "private": true,
-  "description": "Cited. gamified sales deck — hosted on Railway",
+  "description": "Cited. — UK's first GEO agency website. Multi-page static site on Railway.",
   "scripts": {
-    "start": "serve -s . -l tcp://0.0.0.0:${PORT:-3000} --no-clipboard"
+    "start": "serve . -l tcp://0.0.0.0:${PORT:-3000} --no-clipboard"
   },
   "dependencies": {
     "serve": "14.2.4"
