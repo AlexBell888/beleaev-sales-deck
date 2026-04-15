@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cited. — Win the AI Answer. The Gamified Client Experience.</title>
+<meta name="description" content="The UK's first dedicated Generative Engine Optimisation agency. When a buyer asks AI, your brand is the answer." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07070c;
+    --bg-2: #0d0d16;
+    --surface: #12121d;
+    --surface-2: #1a1a2a;
+    --border: rgba(255,255,255,0.08);
+    --border-2: rgba(255,255,255,0.14);
+    --text: #f5f5f7;
+    --text-2: #b8b8c8;
+    --text-3: #7a7a88;
+    --gold: #ffd166;
+    --gold-2: #e8b33e;
+    --violet: #a78bfa;
+    --violet-2: #7c3aed;
+    --cyan: #67e8f9;
+    --green: #22c55e;
+    --red: #f87171;
+    --red-2: #ef4444;
+    --shadow: 0 20px 60px -15px rgba(0,0,0,0.7);
+    --radius: 18px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(167,139,250,0.08) 0%, transparent 45%),
+      radial-gradient(circle at 80% 60%, rgba(255,209,102,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 50% 95%, rgba(103,232,249,0.05) 0%, transparent 40%);
+    background-attachment: fixed;
+  }
+
+  /* Subtle grain */
+  body::before {
+    content:'';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+  }
+
+  h1,h2,h3,h4 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+
+  /* ===== Progress Bar (game-style) ===== */
+  .hud {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(7,7,12,0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .hud-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    gap: 24px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 16px var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.6;transform:scale(1.2);} }
+
+  .progress-wrap {
+    flex: 1;
+    max-width: 620px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .progress-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-3);
+    white-space: nowrap;
+  }
+  .progress-track {
+    flex:1;
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+  .progress-fill {
+    height:100%;
+    background: linear-gradient(90deg, var(--violet), var(--gold));
+    width: 0%;
+    transition: width 0.2s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255,209,102,0.4);
+  }
+  .xp-counter {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--gold);
+    white-space: nowrap;
+    font-weight: 500;
+  }
+
+  .nav-cta {
+    background: var(--gold);
+    color: #000;
+    border: none;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    text-decoration: none;
+    display:inline-block;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(255,209,102,0.35); }
+
+  /* ===== Sections ===== */
+  section {
+    position: relative;
+    z-index: 2;
+    padding: 100px 24px;
+  }
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+  .level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px;
+    background: rgba(167,139,250,0.1);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--violet);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .level-badge::before {
+    content:'';
+    width:6px; height:6px; border-radius:50%;
+    background: var(--violet);
+    box-shadow: 0 0 8px var(--violet);
+  }
+  .section-title {
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+  .section-subtitle {
+    font-size: clamp(17px, 1.6vw, 20px);
+    color: var(--text-2);
+    max-width: 720px;
+    margin-bottom: 48px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 140px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; top:-20%; left:50%;
+    width: 120%; height: 80%;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center, rgba(167,139,250,0.15) 0%, transparent 50%);
+    pointer-events:none;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    border: 1px solid var(--border-2);
+    border-radius: 999px;
+    background: rgba(255,255,255,0.03);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-2);
+    margin-bottom: 32px;
+    backdrop-filter: blur(10px);
+  }
+  .hero-eyebrow::before {
+    content:'';
+    width: 6px; height: 6px; border-radius:50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2s infinite;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 7vw, 96px);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero h1 .gradient {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--violet) 50%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+  }
+  .hero-sub {
+    font-size: clamp(18px, 1.8vw, 22px);
+    color: var(--text-2);
+    max-width: 740px;
+    margin: 0 auto 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-ctas {
+    display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 80px;
+  }
+  .btn {
+    padding: 15px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: #0a0a0a;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,209,102,0.4); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.05);
+    color: var(--text);
+    border: 1px solid var(--border-2);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-stat {
+    padding: 24px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    text-align: left;
+    transition: all 0.3s;
+  }
+  .hero-stat:hover { transform: translateY(-4px); border-color: var(--border-2); }
+  .hero-stat .big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+  }
+  .hero-stat .lbl { font-size: 13px; color: var(--text-2); line-height: 1.4; }
+
+  /* ===== Level 1: Threat Map ===== */
+  .threat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .threat-card {
+    padding: 28px 24px;
+    background: linear-gradient(180deg, rgba(239,68,68,0.08) 0%, rgba(239,68,68,0.02) 100%);
+    border: 1px solid rgba(239,68,68,0.18);
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s;
+  }
+  .threat-card::before {
+    content:'';
+    position: absolute; top:0; left:0; right:0;
+    height: 2px;
+    background: var(--red);
+    opacity: 0.4;
+  }
+  .threat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(239,68,68,0.35);
+  }
+  .threat-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .threat-drop {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin: 12px 0;
+  }
+  .threat-desc { font-size: 14px; color: var(--text-2); }
+
+  /* ===== Calculator ===== */
+  .calc-section {
+    padding: 80px 24px;
+  }
+  .calc-card {
+    padding: 48px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04));
+    border: 1px solid var(--border-2);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .calc-card::after {
+    content:'';
+    position: absolute; bottom:-50%; right:-20%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,209,102,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .calc-input-group { margin-bottom: 24px; }
+  .calc-input-group label {
+    display:block;
+    font-size: 13px;
+    color: var(--text-2);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .calc-input-group input {
+    width: 100%;
+    padding: 16px 20px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border-2);
+    color: var(--text);
+    border-radius: 12px;
+    font-size: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.2s;
+  }
+  .calc-input-group input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: rgba(0,0,0,0.5);
+  }
+  .calc-input-group input[type=range] { padding:0; background:transparent; border:none; }
+  .range-value {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--gold);
+    font-size: 14px;
+  }
+  .calc-result {
+    text-align: center;
+    padding: 20px;
+  }
+  .calc-result .lbl {
+    font-size: 13px;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .calc-result .big {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--red);
+    margin-bottom: 8px;
+    transition: all 0.3s;
+  }
+  .calc-result .big.green { color: var(--green); }
+  .calc-result .sub { font-size: 14px; color: var(--text-2); }
+  .calc-toggle {
+    display: flex;
+    gap: 4px;
+    background: rgba(0,0,0,0.3);
+    padding: 4px;
+    border-radius: 12px;
+    margin: 20px auto;
+    width: fit-content;
+  }
+  .calc-toggle button {
+    padding: 10px 20px;
+    background: transparent;
+    border: none;
+    color: var(--text-2);
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+  .calc-toggle button.active {
+    background: var(--surface-2);
+    color: var(--gold);
+  }
+
+  /* ===== Power Plays (5 layers) ===== */
+  .plays-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .play-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: pointer;
+  }
+  .play-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    background: var(--surface-2);
+    box-shadow: 0 20px 40px -10px rgba(255,209,102,0.2);
+  }
+  .play-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.05em;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .play-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .play-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+  .play-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(167,139,250,0.12);
+    border: 1px solid rgba(167,139,250,0.25);
+    color: var(--violet);
+    border-radius: 999px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 16px;
+  }
+
+  /* ===== Winners vs Losers ===== */
+  .battle-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .battle-col {
+    padding: 32px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+  .battle-col.losers {
+    background: linear-gradient(180deg, rgba(239,68,68,0.05), transparent);
+    border-color: rgba(239,68,68,0.2);
+  }
+  .battle-col.winners {
+    background: linear-gradient(180deg, rgba(34,197,94,0.05), transparent);
+    border-color: rgba(34,197,94,0.2);
+  }
+  .battle-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .battle-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 20px;
+  }
+  .losers .battle-icon { background: rgba(239,68,68,0.15); }
+  .winners .battle-icon { background: rgba(34,197,94,0.15); }
+  .battle-title {
+    font-size: 22px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .battle-item {
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .battle-item:last-child { border-bottom: none; }
+  .battle-item-brand {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+  .battle-item-name { font-weight: 600; font-size: 16px; }
+  .battle-item-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .losers .battle-item-metric { color: var(--red); }
+  .winners .battle-item-metric { color: var(--green); }
+  .battle-item-note { font-size: 13px; color: var(--text-3); }
+
+  /* ===== Tier Selector ===== */
+  .tier-switcher {
+    display: flex;
+    gap: 8px;
+    background: var(--surface);
+    padding: 6px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
+    width: fit-content;
+  }
+  .tier-btn {
+    padding: 12px 28px;
+    background: transparent;
+    color: var(--text-2);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  .tier-btn.active.bronze { background: linear-gradient(135deg, #cd7f32, #8b5a2b); color: #fff; }
+  .tier-btn.active.silver { background: linear-gradient(135deg, #e5e5e5, #a8a8a8); color: #000; }
+  .tier-btn.active.gold { background: linear-gradient(135deg, var(--gold), #e8a84e); color: #000; }
+
+  .tier-card {
+    display: none;
+    padding: 48px;
+    background: var(--surface);
+    border: 1px solid var(--border-2);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease;
+  }
+  .tier-card.active { display: block; }
+  @keyframes fadeUp { from {opacity:0;transform:translateY(10px);} to {opacity:1;transform:translateY(0);} }
+
+  .tier-card::before {
+    content:'';
+    position: absolute; top:0; left:0; right:0;
+    height: 4px;
+  }
+  .tier-card.bronze-card::before { background: linear-gradient(90deg, #cd7f32, transparent); }
+  .tier-card.silver-card::before { background: linear-gradient(90deg, #d1d5db, transparent); }
+  .tier-card.gold-card::before { background: linear-gradient(90deg, var(--gold), transparent); }
+
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .tier-left { text-align: left; }
+  .tier-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+  .tier-tagline { color: var(--text-2); margin-bottom: 28px; font-size: 16px; }
+  .tier-price-block {
+    padding: 20px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 16px;
+  }
+  .tier-price {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .tier-price span { font-size: 14px; color: var(--text-2); font-weight: 400; }
+  .tier-term {
+    font-size: 13px;
+    color: var(--text-3);
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 8px;
+  }
+  .tier-best { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+  .tier-best strong { color: var(--text); display: block; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+
+  .tier-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tier-feature {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 13.5px;
+    line-height: 1.4;
+    transition: all 0.2s;
+  }
+  .tier-feature:hover { border-color: var(--border-2); background: rgba(0,0,0,0.45); }
+  .tier-feature .check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .bronze-card .tier-feature .check { background: rgba(205,127,50,0.2); color: #cd7f32; }
+  .silver-card .tier-feature .check { background: rgba(209,213,219,0.15); color: #d1d5db; }
+  .gold-card .tier-feature .check { background: rgba(255,209,102,0.2); color: var(--gold); }
+
+  /* ===== Comparison Table ===== */
+  .compare-wrap { overflow-x: auto; }
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--surface);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    min-width: 680px;
+  }
+  .compare-table th, .compare-table td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .compare-table th {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--text);
+    background: rgba(255,255,255,0.02);
+  }
+  .compare-table th.gold-col {
+    background: linear-gradient(180deg, rgba(255,209,102,0.12), transparent);
+    color: var(--gold);
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { color: var(--text-2); font-weight: 500; }
+  .compare-table td.gold-cell { color: var(--gold); font-weight: 600; }
+
+  /* ===== Quest (onboarding steps) ===== */
+  .quest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .quest-grid::before {
+    content: '';
+    position: absolute;
+    top: 34px;
+    left: 10%; right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet), var(--gold));
+    opacity: 0.3;
+    z-index: 0;
+  }
+  .quest-step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px 22px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .quest-step:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+  }
+  .quest-num {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--bg-2);
+    border: 2px solid var(--border-2);
+    display: grid; place-items: center;
+    margin: 0 auto 20px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--gold);
+  }
+  .quest-step:hover .quest-num {
+    border-color: var(--gold);
+    background: rgba(255,209,102,0.1);
+    box-shadow: 0 0 20px rgba(255,209,102,0.3);
+  }
+  .quest-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .quest-desc { font-size: 13px; color: var(--text-2); line-height: 1.5; margin-bottom: 12px; }
+  .quest-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    padding: 4px 10px;
+    background: rgba(255,209,102,0.1);
+    border-radius: 999px;
+    display: inline-block;
+  }
+
+  /* ===== Why Cited ===== */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .why-card {
+    padding: 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.3s;
+  }
+  .why-card:hover {
+    background: var(--surface-2);
+    border-color: var(--border-2);
+    transform: translateY(-4px);
+  }
+  .why-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(167,139,250,0.15), rgba(255,209,102,0.1));
+    border: 1px solid var(--border-2);
+    margin-bottom: 18px;
+    font-size: 22px;
+  }
+  .why-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .why-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+
+  /* ===== FAQ ===== */
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: all 0.25s;
+  }
+  .faq-item[open] {
+    border-color: var(--border-2);
+    background: var(--surface-2);
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    gap: 20px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 24px;
+    color: var(--gold);
+    font-weight: 300;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+  }
+  .faq-item[open] summary::after { transform: rotate(45deg); }
+  .faq-body {
+    padding: 0 24px 24px;
+    color: var(--text-2);
+    font-size: 14.5px;
+    line-height: 1.7;
+  }
+
+  /* ===== Final CTA ===== */
+  .final-cta {
+    padding: 120px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content:'';
+    position:absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,209,102,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .final-card {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 64px 48px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+    border: 1px solid var(--border-2);
+    border-radius: 32px;
+    backdrop-filter: blur(20px);
+  }
+  .final-card h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.05;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+  }
+  .final-card p {
+    font-size: 18px;
+    color: var(--text-2);
+    margin-bottom: 40px;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .final-contacts {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: var(--text-3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .final-contacts span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* ===== Achievement Toast ===== */
+  .achievement {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: linear-gradient(135deg, var(--surface-2), var(--surface));
+    border: 1px solid var(--gold);
+    padding: 16px 20px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 20px rgba(255,209,102,0.2);
+    transform: translateX(calc(100% + 40px));
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 200;
+    max-width: 340px;
+  }
+  .achievement.show { transform: translateX(0); }
+  .achievement-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-2));
+    display: grid; place-items: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .achievement-body { font-size: 13px; }
+  .achievement-lbl { color: var(--gold); font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 2px; }
+  .achievement-title { font-weight: 600; font-size: 14px; color: var(--text); }
+
+  /* ===== Footer ===== */
+  footer {
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-3);
+    font-size: 13px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 900px) {
+    .hero-stats { grid-template-columns: repeat(2, 1fr); }
+    .calc-grid { grid-template-columns: 1fr; }
+    .tier-grid { grid-template-columns: 1fr; gap: 24px; }
+    .tier-features { grid-template-columns: 1fr; }
+    .battle-wrap { grid-template-columns: 1fr; }
+    .quest-grid { grid-template-columns: repeat(2, 1fr); }
+    .quest-grid::before { display: none; }
+    .hud-inner { flex-wrap: wrap; gap: 12px; }
+    .progress-wrap { order: 3; flex-basis: 100%; max-width: 100%; }
+    section { padding: 60px 20px; }
+    .final-card { padding: 40px 28px; }
+    .calc-card { padding: 28px 20px; }
+    .achievement { bottom: 16px; right: 16px; left: 16px; max-width: none; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 120px 20px 60px; }
+    .hero-stats { grid-template-columns: 1fr; }
+    .quest-grid { grid-template-columns: 1fr; }
+    .tier-switcher { width: 100%; flex-direction: column; }
+    .compare-table { font-size: 12px; }
+    .compare-table th, .compare-table td { padding: 12px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HUD (game-like progress bar) ===== -->
+<div class="hud">
+  <div class="hud-inner">
+    <div class="logo">
+      <span class="logo-dot"></span>
+      <span>Cited<span style="color: var(--gold);">.</span></span>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label">MISSION PROGRESS</span>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <span class="xp-counter" id="xpCounter">0 XP</span>
+    </div>
+    <a href="#start" class="nav-cta">Start the Quest →</a>
+  </div>
+</div>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <span>UK'S FIRST DEDICATED GEO AGENCY · 2026</span>
+    </div>
+    <h1>
+      When a buyer asks AI,<br/>
+      <span class="gradient">your brand is the answer.</span>
+    </h1>
+    <p class="hero-sub">
+      The rules of discovery just changed. Your customers no longer start at Google — they ask ChatGPT, Perplexity, Gemini, and Copilot. We make sure you're the brand they cite, compare, and choose.
+    </p>
+    <div class="hero-ctas">
+      <a href="#calculator" class="btn btn-primary">⚡ See What You're Losing</a>
+      <a href="#packages" class="btn btn-ghost">Explore Packages</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="big">48%</div>
+        <div class="lbl">of Google queries already answered by AI Overviews before the first blue link</div>
+      </div>
+      <div class="hero-stat">
+        <div class="big">58.5%</div>
+        <div class="lbl">of all searches now end with zero clicks to any website</div>
+      </div>
+      <div class="hero-stat">
+        <div class="big">4.4–23×</div>
+        <div class="lbl">higher conversion from AI-referred traffic vs traditional organic</div>
+      </div>
+      <div class="hero-stat">
+        <div class="big">$750B</div>
+        <div class="lbl">US revenue McKinsey projects will flow through AI search by 2028</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEVEL 1: The Threat Map ===== -->
+<section id="threat" data-level="1">
+  <div class="container">
+    <div class="level-badge">Level 1 · The Threat Map</div>
+    <h2 class="section-title">The brands that waited.<br/><span style="color: var(--red);">And what happened next.</span></h2>
+    <p class="section-subtitle">Strong SEO. Weak AI visibility. Sudden traffic collapse once the category shifted. This is not theory — these are the receipts from 2024-2025.</p>
+
+    <div class="threat-grid">
+      <div class="threat-card">
+        <div class="threat-brand">HubSpot</div>
+        <div class="threat-drop">-55%</div>
+        <div class="threat-desc">Organic traffic fell from 13.5M to 6.1M monthly visits. Over-indexed on content AI Overviews now answers directly.</div>
+      </div>
+      <div class="threat-card">
+        <div class="threat-brand">Chegg</div>
+        <div class="threat-drop">-90%</div>
+        <div class="threat-desc">Share price collapsed from peak. Revenue down 24%. AI search answered the student queries that drove all their traffic.</div>
+      </div>
+      <div class="threat-card">
+        <div class="threat-brand">Business Insider</div>
+        <div class="threat-drop">-55%</div>
+        <div class="threat-desc">Organic search traffic halved. Editorial staff cut by 21% in 2025. A profitable newsroom, hollowed out.</div>
+      </div>
+      <div class="threat-card">
+        <div class="threat-brand">Stereogum</div>
+        <div class="threat-drop">-70%</div>
+        <div class="threat-desc">Lost 70% of advertising revenue after music discovery shifted to AI-powered search and recommendation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEVEL 2: Interactive Loss Calculator ===== -->
+<section id="calculator" class="calc-section" data-level="2">
+  <div class="container">
+    <div class="level-badge" style="background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.3); color: var(--gold);">Level 2 · Loss Calculator</div>
+    <h2 class="section-title">How much traffic is <span style="color:var(--red);">walking away</span>?</h2>
+    <p class="section-subtitle">Move the sliders. See your exposure. The math is based on Seer Interactive's 25.1M impression study and Gartner's 2026 projections.</p>
+
+    <div class="calc-card">
+      <div class="calc-toggle">
+        <button class="active" data-mode="loss">📉 What you lose without GEO</button>
+        <button data-mode="gain">📈 What you gain with GEO</button>
+      </div>
+
+      <div class="calc-grid">
+        <div>
+          <div class="calc-input-group">
+            <label>Your current monthly organic visits: <span class="range-value" id="visitsVal">50,000</span></label>
+            <input type="range" id="visits" min="5000" max="500000" step="5000" value="50000">
+          </div>
+          <div class="calc-input-group">
+            <label>Average order value / deal value (£): <span class="range-value" id="aovVal">250</span></label>
+            <input type="range" id="aov" min="50" max="5000" step="50" value="250">
+          </div>
+          <div class="calc-input-group">
+            <label>Current conversion rate (%): <span class="range-value" id="cvrVal">2.0</span></label>
+            <input type="range" id="cvr" min="0.1" max="10" step="0.1" value="2">
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="lbl" id="resLbl">Annual revenue at risk</div>
+          <div class="big" id="resBig">£0</div>
+          <div class="sub" id="resSub">if AI Overviews continue current trajectory (61% CTR drop)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEVEL 3: The 5 Power Plays ===== -->
+<section id="plays" data-level="3">
+  <div class="container">
+    <div class="level-badge">Level 3 · The 5-Layer Programme</div>
+    <h2 class="section-title">Here is <span class="hero-h1-grad" style="background: linear-gradient(135deg,var(--violet),var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent;">exactly</span> what we do for you.</h2>
+    <p class="section-subtitle">Five connected layers across your brand, your content, and the six AI engines your buyers use. No fluff. No retrofit. GEO is the only thing we do.</p>
+
+    <div class="plays-grid">
+      <div class="play-card">
+        <div class="play-num">01</div>
+        <div class="play-name">AI Visibility Audit & Monitoring</div>
+        <div class="play-desc">Baseline diagnostic across ChatGPT, Perplexity, Google AI Overviews, Gemini, Copilot, and Claude. We measure your Share of Model, citation frequency, and competitive position on every priority query.</div>
+        <span class="play-tag">6 engines tracked</span>
+      </div>
+      <div class="play-card">
+        <div class="play-num">02</div>
+        <div class="play-name">Entity & Knowledge Graph Optimisation</div>
+        <div class="play-desc">AI engines read structured data, not prose. We implement schema markup, reinforce entity signals, align knowledge panels, and fix the machine-readable fabric of your site.</div>
+        <span class="play-tag">Schema + Wikidata</span>
+      </div>
+      <div class="play-card">
+        <div class="play-num">03</div>
+        <div class="play-name">AI-Optimised Content</div>
+        <div class="play-desc">Direct-answer blocks of 40-60 words, stats-rich data stories, FAQ clusters, listicles AI extracts cleanly, and expert-quote assets that build authority for citation.</div>
+        <span class="play-tag">Citation-first writing</span>
+      </div>
+      <div class="play-card">
+        <div class="play-num">04</div>
+        <div class="play-name">Digital PR & Authority Engineering</div>
+        <div class="play-desc">Earned placements on the sources AI trusts: G2, Capterra, TripAdvisor, Wikipedia, tier-1 UK and EU media, sector trade press, and the listicles AI quotes.</div>
+        <span class="play-tag">Trusted sources only</span>
+      </div>
+      <div class="play-card">
+        <div class="play-num">05</div>
+        <div class="play-name">Cross-Platform Strategy & Reporting</div>
+        <div class="play-desc">Each engine has its own algorithm and user base. We tailor strategy per engine and unify it into a monthly executive dashboard and board-ready quarterly pack.</div>
+        <span class="play-tag">Board-ready KPIs</span>
+      </div>
+      <div class="play-card">
+        <div class="play-num">90d</div>
+        <div class="play-name">What you see within 90 days</div>
+        <div class="play-desc">Measurable citation-frequency lift on priority queries. First AI-referred traffic appearing in Google Analytics under custom segments we build. Competitor benchmark with the gap quantified.</div>
+        <span class="play-tag">Early outcome milestone</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEVEL 4: Winners vs Losers ===== -->
+<section id="battle" data-level="4">
+  <div class="container">
+    <div class="level-badge">Level 4 · Winners vs Losers</div>
+    <h2 class="section-title">Two categories of brand in 2026.<br/>Which one are you?</h2>
+    <p class="section-subtitle">One pattern. Different outcomes. The brands on the left owned traditional SEO. The brands on the right own the AI answer.</p>
+
+    <div class="battle-wrap">
+      <div class="battle-col losers">
+        <div class="battle-header">
+          <div class="battle-icon">📉</div>
+          <div class="battle-title">The Silent Collapse</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">HubSpot</span><span class="battle-item-metric">-55%</span></div>
+          <div class="battle-item-note">Organic traffic: 13.5M → 6.1M monthly</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Chegg</span><span class="battle-item-metric">-90%</span></div>
+          <div class="battle-item-note">Share price from peak. Revenue -24%.</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Business Insider</span><span class="battle-item-metric">-21%</span></div>
+          <div class="battle-item-note">Editorial staff cut after -55% organic search</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Stereogum</span><span class="battle-item-metric">-70%</span></div>
+          <div class="battle-item-note">Advertising revenue evaporated</div>
+        </div>
+      </div>
+
+      <div class="battle-col winners">
+        <div class="battle-header">
+          <div class="battle-icon">🚀</div>
+          <div class="battle-title">The AI-Cited Breakaway</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Shopify Merchants</span><span class="battle-item-metric">+11×</span></div>
+          <div class="battle-item-note">AI-attributed orders since Jan 2025 · +7× AI traffic</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">iPullRank (e-com)</span><span class="battle-item-metric">+$290M</span></div>
+          <div class="battle-item-note">Incremental revenue from structured GEO programme</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Rezolve.ai</span><span class="battle-item-metric">+105%</span></div>
+          <div class="battle-item-note">Organic clicks + 2× inbound leads in 6 months</div>
+        </div>
+        <div class="battle-item">
+          <div class="battle-item-brand"><span class="battle-item-name">Cross-category</span><span class="battle-item-metric">+91%</span></div>
+          <div class="battle-item-note">Paid clicks for brands cited inside AI answers</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LEVEL 5: Choose Your Class (packages) ===== -->
+<section id="packages" data-level="5">
+  <div class="container">
+    <div class="level-badge">Level 5 · Choose Your Class</div>
+    <h2 class="section-title">Pick the package that <span style="color: var(--gold);">fits your category ambition.</span></h2>
+    <p class="section-subtitle">Three tiers, each built for a different stage of brand maturity and market intensity. No surprises, no bloat — exactly what you need for your next 12 months.</p>
+
+    <div class="tier-switcher" role="tablist">
+      <button class="tier-btn bronze active" data-tier="bronze">🥉 Bronze · Foundation</button>
+      <button class="tier-btn silver" data-tier="silver">🥈 Silver · Growth</button>
+      <button class="tier-btn gold" data-tier="gold">🥇 Gold · Enterprise</button>
+    </div>
+
+    <div class="tier-card bronze-card active" id="tier-bronze">
+      <div class="tier-grid">
+        <div class="tier-left">
+          <div class="tier-name">Bronze</div>
+          <div class="tier-tagline">For brands getting serious about AI search for the first time.</div>
+          <div class="tier-price-block">
+            <div class="tier-price">£2.5K – £5K<span>/mo</span></div>
+            <div class="tier-term">3-MONTH MINIMUM</div>
+          </div>
+          <div class="tier-best">
+            <strong>Best fit</strong>
+            SMB and mid-market, single-market brands, challenger brands entering a new category.
+          </div>
+        </div>
+        <div class="tier-features">
+          <div class="tier-feature"><span class="check">✓</span> AI Visibility Baseline Audit across six engines</div>
+          <div class="tier-feature"><span class="check">✓</span> Entity & schema optimisation on 20 priority pages</div>
+          <div class="tier-feature"><span class="check">✓</span> Cited Monitor dashboard for one AI engine</div>
+          <div class="tier-feature"><span class="check">✓</span> Monthly 60-minute strategy call</div>
+          <div class="tier-feature"><span class="check">✓</span> Quarterly performance report</div>
+          <div class="tier-feature"><span class="check">✓</span> Written competitive benchmark</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-card silver-card" id="tier-silver">
+      <div class="tier-grid">
+        <div class="tier-left">
+          <div class="tier-name">Silver</div>
+          <div class="tier-tagline">For brands competing for the top citation slot in their category.</div>
+          <div class="tier-price-block">
+            <div class="tier-price">£5K – £10K<span>/mo</span></div>
+            <div class="tier-term">6-MONTH MINIMUM</div>
+          </div>
+          <div class="tier-best">
+            <strong>Best fit</strong>
+            Mid-market to upper mid-market. Regulated sectors (fintech, legaltech, healthtech). B2B SaaS scaling beyond £5M ARR. Consumer brands with multi-product portfolios.
+          </div>
+        </div>
+        <div class="tier-features">
+          <div class="tier-feature"><span class="check">✓</span> Everything in Bronze</div>
+          <div class="tier-feature"><span class="check">✓</span> Cited Monitor across all six AI engines</div>
+          <div class="tier-feature"><span class="check">✓</span> 8–12 AI-optimised content pieces / month</div>
+          <div class="tier-feature"><span class="check">✓</span> 4–6 digital PR & authority placements / quarter</div>
+          <div class="tier-feature"><span class="check">✓</span> Citation monitoring across 50+ sources</div>
+          <div class="tier-feature"><span class="check">✓</span> Weekly strategy call + dedicated Slack / Teams</div>
+          <div class="tier-feature"><span class="check">✓</span> Monthly executive report</div>
+          <div class="tier-feature"><span class="check">✓</span> Prompt-level citation analytics</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier-card gold-card" id="tier-gold">
+      <div class="tier-grid">
+        <div class="tier-left">
+          <div class="tier-name">Gold</div>
+          <div class="tier-tagline">For enterprise brands where AI visibility is a C-suite priority.</div>
+          <div class="tier-price-block">
+            <div class="tier-price">£10K – £30K+<span>/mo</span></div>
+            <div class="tier-term">12-MONTH MINIMUM</div>
+          </div>
+          <div class="tier-best">
+            <strong>Best fit</strong>
+            FTSE 350. Global 2000. PE-backed scale-ups £20M+ ARR. Regulated verticals. Multi-brand portfolios. International expansion programmes.
+          </div>
+        </div>
+        <div class="tier-features">
+          <div class="tier-feature"><span class="check">✓</span> Everything in Silver</div>
+          <div class="tier-feature"><span class="check">✓</span> Dedicated GEO team (strategist, content lead, PR lead, data analyst)</div>
+          <div class="tier-feature"><span class="check">✓</span> Multi-market / multi-language up to 5 markets</div>
+          <div class="tier-feature"><span class="check">✓</span> Governance: EU AI Act, GDPR, FCA, sector regulation</div>
+          <div class="tier-feature"><span class="check">✓</span> Custom revenue attribution model (CRM + analytics)</div>
+          <div class="tier-feature"><span class="check">✓</span> Quarterly executive workshops & in-house enablement</div>
+          <div class="tier-feature"><span class="check">✓</span> Private access to Cited Intelligence sector data</div>
+          <div class="tier-feature"><span class="check">✓</span> Monthly exec dashboard + quarterly board-ready pack</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Comparison Table ===== -->
+<section id="compare" data-level="6">
+  <div class="container">
+    <div class="level-badge">Level 6 · The Arena</div>
+    <h2 class="section-title">Side-by-side. <span style="color: var(--gold);">No fine print.</span></h2>
+    <p class="section-subtitle">Everything that matters in one table. Print it. Share it with procurement. Compare against any competitor.</p>
+
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Bronze</th>
+            <th>Silver</th>
+            <th class="gold-col">Gold ★</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Monthly fee</td><td>£2.5K – £5K</td><td>£5K – £10K</td><td class="gold-cell">£10K – £30K+</td></tr>
+          <tr><td>Minimum term</td><td>3 months</td><td>6 months</td><td class="gold-cell">12 months</td></tr>
+          <tr><td>AI engines tracked</td><td>1</td><td>6</td><td class="gold-cell">6 + custom</td></tr>
+          <tr><td>Content pieces / month</td><td>Audit only</td><td>8–12</td><td class="gold-cell">15–25 + localisation</td></tr>
+          <tr><td>Digital PR / quarter</td><td>—</td><td>4–6</td><td class="gold-cell">8–12</td></tr>
+          <tr><td>Markets / languages</td><td>1</td><td>1–2</td><td class="gold-cell">Up to 5</td></tr>
+          <tr><td>Governance & compliance</td><td>—</td><td>—</td><td class="gold-cell">Full framework</td></tr>
+          <tr><td>Revenue attribution</td><td>—</td><td>Standard</td><td class="gold-cell">Custom model</td></tr>
+          <tr><td>Strategy cadence</td><td>Monthly</td><td>Weekly</td><td class="gold-cell">Embedded team</td></tr>
+          <tr><td>Board reporting</td><td>Quarterly PDF</td><td>Monthly</td><td class="gold-cell">Board-ready pack</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Why Cited ===== -->
+<section id="why" data-level="7">
+  <div class="container">
+    <div class="level-badge">Level 7 · Why Cited.</div>
+    <h2 class="section-title">Why not just ask your <span style="color: var(--text-3); text-decoration: line-through;">general SEO agency</span> to do this?</h2>
+    <p class="section-subtitle">Because GEO is not SEO with a new label. It's a different stack, a different measurement model, and a different authority strategy. Here's how we're built differently.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🎯</div>
+        <div class="why-title">Dedicated, not retrofit</div>
+        <div class="why-desc">GEO is our only service. Every hour is spent on AI search — not split across legacy SEO, paid media, and creative.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📊</div>
+        <div class="why-title">Proprietary measurement</div>
+        <div class="why-desc">Cited Monitor tracks your brand across six AI engines in real time. Most "GEO agencies" still rely on manual prompt testing.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🇬🇧</div>
+        <div class="why-title">UK-first market intelligence</div>
+        <div class="why-desc">Our quarterly UK AI Search Visibility Index covers 100+ brands across 5 verticals. A view no US platform can match.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚖️</div>
+        <div class="why-title">Regulated-industry depth</div>
+        <div class="why-desc">Programmes aligned to EU AI Act, GDPR, FCA, and sector compliance. Your legal team can defend every decision we make.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🧾</div>
+        <div class="why-title">Evidence-based</div>
+        <div class="why-desc">Every recommendation is grounded in market data, not agency opinion. Full sourcing on every claim we make.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">The cited brand gets chosen</div>
+        <div class="why-desc">Over the next 36 months every category has one brand the AI engines quote first. We make sure it's yours.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== The Quest (onboarding) ===== -->
+<section id="start" data-level="8">
+  <div class="container">
+    <div class="level-badge" style="background: rgba(255,209,102,0.12); border-color: rgba(255,209,102,0.3); color: var(--gold);">Final Level · Your Quest Begins</div>
+    <h2 class="section-title">Four moves. <span style="color: var(--gold);">No procurement maze.</span></h2>
+    <p class="section-subtitle">One call, one snapshot, one proposal, and you're live inside 2 weeks. That's it. No seven-stage sales process.</p>
+
+    <div class="quest-grid">
+      <div class="quest-step">
+        <div class="quest-num">1</div>
+        <div class="quest-title">Discovery Call</div>
+        <div class="quest-desc">We learn your category, competitors, and current AI visibility.</div>
+        <div class="quest-time">30 min</div>
+      </div>
+      <div class="quest-step">
+        <div class="quest-num">2</div>
+        <div class="quest-title">Free Snapshot</div>
+        <div class="quest-desc">4-page report showing where you stand across six AI engines vs your 3 nearest competitors.</div>
+        <div class="quest-time">5 days</div>
+      </div>
+      <div class="quest-step">
+        <div class="quest-num">3</div>
+        <div class="quest-title">Written Proposal</div>
+        <div class="quest-desc">Tier recommendation, scope, and commercial terms — built around your goals.</div>
+        <div class="quest-time">10 days</div>
+      </div>
+      <div class="quest-step">
+        <div class="quest-num">4</div>
+        <div class="quest-title">Onboard & Launch</div>
+        <div class="quest-desc">We ship your first content and authority waves. First outcomes inside 90 days.</div>
+        <div class="quest-time">2 weeks</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" data-level="9">
+  <div class="container">
+    <div class="level-badge">Bonus Level · FAQ Armory</div>
+    <h2 class="section-title">Everything you're about to ask.</h2>
+    <p class="section-subtitle">Straight answers, not agency-speak. If something isn't here, ask us on the discovery call.</p>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>How is this different from SEO?</summary>
+        <div class="faq-body">SEO optimises for blue-link rankings on Google. GEO optimises for <em>citation inside AI-generated answers</em> on ChatGPT, Perplexity, Google AI Overviews, Gemini, Copilot, and Claude. The technical work overlaps; the content strategy, authority engineering, and measurement model are fundamentally different.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Can my in-house team do this themselves?</summary>
+        <div class="faq-body">Some of it — yes. Technical schema and content production are within reach of a strong in-house team. Proprietary multi-engine monitoring, cross-platform prompt coverage, and citation attribution are the parts in-house teams consistently struggle with. We build the measurement layer. Your team keeps the operating muscle.</div>
+      </details>
+      <details class="faq-item">
+        <summary>When do we see results?</summary>
+        <div class="faq-body">First measurable citation increase inside 60–90 days on priority queries. First AI-referred traffic attribution in analytics by month 3. Category-level outcomes by month 6–9. Top-three AI citation position on strategic queries by month 7–12.</div>
+      </details>
+      <details class="faq-item">
+        <summary>What if AI search slows down?</summary>
+        <div class="faq-body">Every major research house (Gartner, McKinsey, Forrester) projects continued acceleration through 2028. Our platform is also a standard attribution layer — even if channel mix shifts, the measurement model remains valuable across any discovery channel.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Do you offer a trial?</summary>
+        <div class="faq-body">The AI Visibility Snapshot is free and takes five working days. If you decide not to proceed, the report is yours to keep. No strings, no invoice.</div>
+      </details>
+      <details class="faq-item">
+        <summary>Where does your data come from?</summary>
+        <div class="faq-body">Figures on this page are drawn from Seer Interactive (25.1M impression study), McKinsey, Gartner, Forrester, Shopify merchant reports, Similarweb, and published case studies. Full source list available on request.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section class="final-cta" data-level="10">
+  <div class="final-card">
+    <h2>Every category will have <span style="background: linear-gradient(135deg,var(--gold),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;">one cited brand.</span><br/>Make it yours.</h2>
+    <p>67% of Fortune 500 CMOs rank GEO a top-three priority in 2026. Only 12% have a documented strategy. The gap is closing in the next 12–18 months.</p>
+
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="mailto:hello@cited.agency?subject=Book%20my%20free%20AI%20Visibility%20Snapshot" class="btn btn-primary">⚡ Book the free Snapshot</a>
+      <a href="#packages" class="btn btn-ghost">Re-read the packages</a>
+    </div>
+
+    <div class="final-contacts">
+      <span>✉ hello@cited.agency</span>
+      <span>⬡ cited.agency</span>
+      <span>in /company/cited</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Achievement Toast ===== -->
+<div class="achievement" id="achievement">
+  <div class="achievement-icon">🏆</div>
+  <div class="achievement-body">
+    <div class="achievement-lbl">ACHIEVEMENT UNLOCKED</div>
+    <div class="achievement-title" id="achievementTitle">You've completed the pitch</div>
+  </div>
+</div>
+
+<footer>
+  Cited. · The UK's first dedicated Generative Engine Optimisation agency · cited.agency
+</footer>
+
+<script>
+  // ===== Progress bar + XP =====
+  const fill = document.getElementById('progressFill');
+  const xp = document.getElementById('xpCounter');
+  const totalHeight = () => document.documentElement.scrollHeight - window.innerHeight;
+  function updateProgress() {
+    const p = Math.min(100, Math.max(0, (window.scrollY / totalHeight()) * 100));
+    fill.style.width = p + '%';
+    xp.textContent = Math.round(p * 10) + ' XP';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // ===== Achievement toasts per level =====
+  const ach = document.getElementById('achievement');
+  const achTitle = document.getElementById('achievementTitle');
+  const milestones = {
+    1: "📉 You saw the threat map",
+    2: "🧮 You calculated your exposure",
+    3: "⚡ You unlocked the 5 power plays",
+    4: "⚔️ You studied the battlefield",
+    5: "🎖️ You chose your class",
+    6: "📋 You compared the arena",
+    7: "💡 You understand why Cited.",
+    8: "🗺️ Your quest is mapped",
+    9: "📚 You know the FAQs"
+  };
+  const shown = new Set();
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const lvl = e.target.dataset.level;
+        if (lvl && milestones[lvl] && !shown.has(lvl)) {
+          shown.add(lvl);
+          achTitle.textContent = milestones[lvl];
+          ach.classList.add('show');
+          clearTimeout(window.__achTimer);
+          window.__achTimer = setTimeout(() => ach.classList.remove('show'), 2800);
+        }
+      }
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('[data-level]').forEach(el => observer.observe(el));
+
+  // ===== Tier switcher =====
+  const tierBtns = document.querySelectorAll('.tier-btn');
+  const tierCards = document.querySelectorAll('.tier-card');
+  tierBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tier = btn.dataset.tier;
+      tierBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      tierCards.forEach(c => c.classList.remove('active'));
+      document.getElementById('tier-' + tier).classList.add('active');
+    });
+  });
+
+  // ===== Loss calculator =====
+  const visits = document.getElementById('visits');
+  const aov = document.getElementById('aov');
+  const cvr = document.getElementById('cvr');
+  const visitsVal = document.getElementById('visitsVal');
+  const aovVal = document.getElementById('aovVal');
+  const cvrVal = document.getElementById('cvrVal');
+  const resBig = document.getElementById('resBig');
+  const resLbl = document.getElementById('resLbl');
+  const resSub = document.getElementById('resSub');
+  const toggleBtns = document.querySelectorAll('.calc-toggle button');
+  let mode = 'loss'; // or 'gain'
+
+  function fmt(n) {
+    if (n >= 1e6) return '£' + (n/1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return '£' + (n/1e3).toFixed(0) + 'K';
+    return '£' + Math.round(n).toLocaleString('en-GB');
+  }
+  function fmtRaw(n) {
+    return n.toLocaleString('en-GB');
+  }
+  function recalc() {
+    const v = +visits.value;
+    const a = +aov.value;
+    const c = +cvr.value;
+    visitsVal.textContent = fmtRaw(v);
+    aovVal.textContent = fmtRaw(a);
+    cvrVal.textContent = c.toFixed(1);
+
+    const annualVisits = v * 12;
+    const annualRevenue = annualVisits * (c / 100) * a;
+
+    if (mode === 'loss') {
+      // 61% CTR drop on queries where AI Overview appears (Seer)
+      // Conservative: assume 40% of your traffic hits AI Overview queries
+      const loss = annualRevenue * 0.40 * 0.61;
+      resBig.textContent = fmt(loss);
+      resBig.classList.remove('green');
+      resLbl.textContent = 'Annual revenue at risk';
+      resSub.textContent = 'if AI Overviews continue trajectory (61% CTR drop on affected queries)';
+    } else {
+      // AI-referred traffic converts 4.4x-23x; use conservative 5x on ~15% reclaimed traffic
+      const gain = annualRevenue * 0.15 * 4;
+      resBig.textContent = '+' + fmt(gain);
+      resBig.classList.add('green');
+      resLbl.textContent = 'Annual revenue upside with GEO';
+      resSub.textContent = 'conservative model — AI-referred traffic converts 4.4×–23× higher than organic';
+    }
+  }
+  [visits, aov, cvr].forEach(i => i.addEventListener('input', recalc));
+  toggleBtns.forEach(b => {
+    b.addEventListener('click', () => {
+      toggleBtns.forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      mode = b.dataset.mode;
+      recalc();
+    });
+  });
+  recalc();
+</script>
+
+</body>
+</html>
