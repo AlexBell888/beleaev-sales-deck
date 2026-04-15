@@ -1,13 +1,13 @@
 {
   "name": "cited-agency-site",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
-  "description": "Cited. — UK's first GEO agency website. Multi-page static site on Railway.",
+  "description": "Cited. — UK's first GEO agency website. Express + Free AI Audit API.",
   "scripts": {
-    "start": "serve . -l tcp://0.0.0.0:${PORT:-3000} --no-clipboard"
+    "start": "node server.js"
   },
   "dependencies": {
-    "serve": "14.2.4"
+    "express": "4.21.1"
   },
   "engines": {
     "node": ">=20"

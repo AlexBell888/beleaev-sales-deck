@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Insights — GEO research, reports, and data | Cited.</title>
 <meta name="description" content="The UK AI Visibility Index, deep-dive reports on ChatGPT/Perplexity/AI Overviews, and the research your category will quote. Free to read." />
+<meta property="og:title" content="Insights — Cited." />
+<meta property="og:description" content="GEO research, reports, and data. Free to read." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/assets/og.svg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -15,9 +20,7 @@
   .page-hero p { font-size: 18px; color: var(--text-2); max-width: 720px; margin: 0 auto; }
 
   .featured-report {
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 40px;
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px;
     padding: 48px;
     background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04));
     border: 1px solid var(--border-2);
@@ -30,15 +33,11 @@
     border: 1px solid var(--border-2);
     border-radius: 16px;
     padding: 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
   }
   .featured-cover::before {
-    content:''; position: absolute; top:0; left:0; right:0;
-    height: 6px;
+    content:''; position: absolute; top:0; left:0; right:0; height: 6px;
     background: linear-gradient(90deg, var(--gold), var(--violet), var(--cyan));
   }
   .cover-label { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 18px; }
@@ -46,22 +45,18 @@
   .cover-bottom { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.12em; }
 
   .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-  .article {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
+  .article-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden;
     transition: all 0.3s;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
   }
-  .article:hover { transform: translateY(-4px); border-color: var(--gold); }
+  .article-card:hover { transform: translateY(-4px); border-color: var(--gold); color: inherit; }
   .article-cover {
     height: 180px;
-    background: linear-gradient(135deg, var(--bg-2), var(--surface-2));
     padding: 24px;
-    position: relative;
-    display: flex; align-items: flex-end;
+    position: relative; display: flex; align-items: flex-end;
     border-bottom: 1px solid var(--border);
   }
   .article-cover.v1 { background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(167,139,250,0.05)); }
@@ -70,30 +65,21 @@
   .article-cover.v4 { background: linear-gradient(135deg, rgba(34,197,94,0.25), rgba(34,197,94,0.05)); }
   .article-cover.v5 { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05)); }
   .article-cover-num {
-    font-family: 'Space Grotesk';
-    font-size: 72px;
-    font-weight: 700;
-    letter-spacing: -0.05em;
-    line-height: 0.9;
+    font-family: 'Space Grotesk'; font-size: 72px; font-weight: 700;
+    letter-spacing: -0.05em; line-height: 0.9;
     color: rgba(255,255,255,0.08);
   }
   .article-type {
-    position: absolute;
-    top: 20px; left: 24px;
-    font-family: 'JetBrains Mono';
-    font-size: 10px;
-    color: var(--text-2);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
+    position: absolute; top: 20px; left: 24px;
+    font-family: 'JetBrains Mono'; font-size: 10px; color: var(--text-2);
+    text-transform: uppercase; letter-spacing: 0.15em;
     padding: 6px 12px;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--border-2);
-    border-radius: 999px;
+    background: rgba(0,0,0,0.4); backdrop-filter: blur(10px);
+    border: 1px solid var(--border-2); border-radius: 999px;
   }
-  .article-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
-  .article h3 { font-size: 19px; margin-bottom: 10px; line-height: 1.3; }
-  .article p.excerpt { font-size: 14px; color: var(--text-2); line-height: 1.55; margin-bottom: 18px; flex: 1; }
+  .article-body-card { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .article-body-card h3 { font-size: 19px; margin-bottom: 10px; line-height: 1.3; font-family: 'Space Grotesk'; font-weight: 600; letter-spacing: -0.02em; }
+  .article-body-card p.excerpt { font-size: 14px; color: var(--text-2); line-height: 1.55; margin-bottom: 18px; flex: 1; }
   .article-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; border-top: 1px solid var(--border); font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); }
 
   .download-box {
@@ -113,6 +99,8 @@
 </head>
 <body>
 
+<a href="#main" class="skip-link">Skip to main content</a>
+
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
@@ -125,22 +113,26 @@
       <li><a href="/contact">Contact</a></li>
     </ul>
     <div class="nav-ctas">
-      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
-      <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
       <button class="nav-burger" aria-label="Toggle menu">☰</button>
     </div>
   </div>
 </nav>
 
+<main id="main">
+
 <section class="page-hero">
   <div class="container">
+    <div class="breadcrumbs" style="justify-content:center;">
+      <a href="/">Home</a><span class="sep">/</span><span class="current">Insights</span>
+    </div>
     <div class="eyebrow" style="margin: 0 auto 20px;">INSIGHTS · RESEARCH · REPORTS</div>
     <h1>The research your <span class="gradient-text">category will quote.</span></h1>
     <p>We publish the data, the reports, and the field notes that other agencies cite. Read freely. Share generously. Take what you need.</p>
   </div>
 </section>
 
-<!-- Featured report -->
 <section style="padding-top: 20px;">
   <div class="container">
     <div class="featured-report">
@@ -156,15 +148,14 @@
         <h2 style="font-size: 32px; margin-bottom: 18px; line-height: 1.1;">Who gets cited, who doesn't, and what changed this quarter.</h2>
         <p style="color: var(--text-2); line-height: 1.6; margin-bottom: 24px;">The quarterly benchmark of how 100+ UK brands perform inside ChatGPT, Perplexity, Google AI Overviews, Gemini, Copilot, and Claude. Share of Model scores, citation deltas, and the three biggest moves of Q2.</p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a href="/contact" class="btn btn-primary">⬇ Download the Q2 report</a>
-          <a href="/contact" class="btn btn-outline">Get on the Q3 list</a>
+          <a href="/contact?source=q2-report" class="btn btn-primary">⬇ Download the Q2 report</a>
+          <a href="/contact?source=q3-waitlist" class="btn btn-outline">Get on the Q3 list</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Articles grid -->
 <section>
   <div class="container">
     <div class="section-header center">
@@ -173,72 +164,71 @@
     </div>
 
     <div class="articles-grid">
-      <article class="article">
+      <a href="/insights/geo-vs-seo" class="article-card">
         <div class="article-cover v1"><span class="article-type">GUIDE</span><span class="article-cover-num">01</span></div>
-        <div class="article-body">
+        <div class="article-body-card">
           <h3>GEO vs SEO: the technical overlap, the strategic divergence</h3>
           <p class="excerpt">Schema rules cross over. Content architecture doesn't. Authority signals are re-weighted entirely. A 2,000-word map of what carries over — and what your agency needs to rebuild from scratch.</p>
           <div class="article-meta"><span>12 MIN READ</span><span>APR 2026</span></div>
         </div>
-      </article>
+      </a>
 
-      <article class="article">
-        <div class="article-cover v2"><span class="article-type">DATA</span><span class="article-cover-num">02</span></div>
-        <div class="article-body">
-          <h3>Why AI Overviews killed the click (and what replaces it)</h3>
-          <p class="excerpt">Seer Interactive's 25.1M impression dataset shows a 61% CTR drop when AI Overviews appear. We break down which query types lose clicks, which gain citations, and how to rebuild the funnel.</p>
-          <div class="article-meta"><span>9 MIN READ</span><span>MAR 2026</span></div>
-        </div>
-      </article>
-
-      <article class="article">
-        <div class="article-cover v3"><span class="article-type">PLAYBOOK</span><span class="article-cover-num">03</span></div>
-        <div class="article-body">
+      <a href="/insights/answer-block" class="article-card">
+        <div class="article-cover v2"><span class="article-type">PLAYBOOK</span><span class="article-cover-num">02</span></div>
+        <div class="article-body-card">
           <h3>The 40–60 word answer block: anatomy of a citation-first paragraph</h3>
-          <p class="excerpt">AI engines extract direct answers, not paragraphs. We reverse-engineered 1,400 cited passages to find the sentence structures, data patterns, and phrasing that get quoted most often.</p>
-          <div class="article-meta"><span>7 MIN READ</span><span>MAR 2026</span></div>
+          <p class="excerpt">AI engines extract passages, not pages. We reverse-engineered 1,400 cited blocks to find the sentence structures, data patterns, and phrasing that get quoted most often.</p>
+          <div class="article-meta"><span>8 MIN READ</span><span>MAR 2026</span></div>
         </div>
-      </article>
+      </a>
 
-      <article class="article">
+      <a href="/insights/schema-for-geo" class="article-card">
+        <div class="article-cover v3"><span class="article-type">GUIDE</span><span class="article-cover-num">03</span></div>
+        <div class="article-body-card">
+          <h3>Schema for GEO: the 9 types AI engines actually read</h3>
+          <p class="excerpt">Not all schema markup is created equal. The nine Schema.org types that drive AI citation — with priority order, implementation patterns, and a ready-to-ship checklist.</p>
+          <div class="article-meta"><span>10 MIN READ</span><span>JAN 2026</span></div>
+        </div>
+      </a>
+
+      <a href="/contact?source=data-report" class="article-card">
         <div class="article-cover v4"><span class="article-type">CASE DATA</span><span class="article-cover-num">04</span></div>
-        <div class="article-body">
+        <div class="article-body-card">
           <h3>How Shopify merchants grew AI-attributed orders 11× in 15 months</h3>
           <p class="excerpt">Aggregated Shopify data, programme patterns, and the four interventions that separated the winners from the flat merchants. The complete playbook for DTC operators.</p>
           <div class="article-meta"><span>10 MIN READ</span><span>FEB 2026</span></div>
         </div>
-      </article>
+      </a>
 
-      <article class="article">
+      <a href="/contact?source=hubspot-report" class="article-card">
         <div class="article-cover v5"><span class="article-type">ALERT</span><span class="article-cover-num">05</span></div>
-        <div class="article-body">
+        <div class="article-body-card">
           <h3>The HubSpot collapse: the lesson for every content-led brand</h3>
           <p class="excerpt">Organic traffic 13.5M → 6.1M. A 55% drop. We mapped every content category HubSpot lost — and the three strategic defences every content-heavy brand should have shipped by Q2.</p>
           <div class="article-meta"><span>11 MIN READ</span><span>FEB 2026</span></div>
         </div>
-      </article>
+      </a>
 
-      <article class="article">
-        <div class="article-cover v1"><span class="article-type">GUIDE</span><span class="article-cover-num">06</span></div>
-        <div class="article-body">
-          <h3>Schema for GEO: the 9 types AI engines actually read</h3>
-          <p class="excerpt">Not all schema markup is created equal. The nine Schema.org types that drive AI citation — with priority order, implementation patterns, and a ready-to-ship checklist.</p>
-          <div class="article-meta"><span>8 MIN READ</span><span>JAN 2026</span></div>
+      <a href="/insights/schema-for-geo" class="article-card">
+        <div class="article-cover v1"><span class="article-type">CHECKLIST</span><span class="article-cover-num">06</span></div>
+        <div class="article-body-card">
+          <h3>The 9-item GEO schema checklist (free)</h3>
+          <p class="excerpt">Print this. Hand it to your CTO. Nine Schema.org types with priority order, implementation patterns, and real JSON-LD snippets you can ship today.</p>
+          <div class="article-meta"><span>10 MIN READ</span><span>JAN 2026</span></div>
         </div>
-      </article>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Newsletter CTA -->
 <section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="container">
     <div class="download-box">
       <div class="eyebrow gold" style="margin: 0 auto 20px;">THE WEEKLY</div>
       <h3>The Cited. Weekly — Mondays, 7am UK</h3>
       <p>One data point, one field note, one tactical move to ship this week. Nothing else. Read in 4 minutes. Zero marketing spam.</p>
-      <form style="display: flex; gap: 10px; justify-content: center; max-width: 480px; margin: 0 auto; flex-wrap: wrap;" onsubmit="event.preventDefault(); alert('Thanks — we will be in touch.');">
-        <input type="email" placeholder="you@company.com" required style="flex: 1; min-width: 220px; padding: 14px 18px; background: rgba(0,0,0,0.35); border: 1px solid var(--border-2); color: var(--text); border-radius: 12px; font-size: 15px; font-family: inherit;" />
+      <form data-cited-newsletter style="display: flex; gap: 10px; justify-content: center; max-width: 480px; margin: 0 auto; flex-wrap: wrap;">
+        <input type="email" name="email" placeholder="you@company.com" required style="flex: 1; min-width: 220px; padding: 14px 18px; background: rgba(0,0,0,0.35); border: 1px solid var(--border-2); color: var(--text); border-radius: 12px; font-size: 15px; font-family: inherit;" />
         <button type="submit" class="btn btn-primary">Subscribe</button>
       </form>
       <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); margin-top: 14px; letter-spacing: 0.1em;">1,800+ CMOs, heads of marketing, founders</div>
@@ -249,14 +239,16 @@
 <section class="cta-strip">
   <div class="cta-card">
     <div class="eyebrow gold" style="margin: 0 auto 20px;">PUT THE RESEARCH TO WORK</div>
-    <h2>Reading the research is <span class="gradient-text">step one.</span><br/>Step two is your free AI Snapshot.</h2>
-    <p>We'll score where your brand stands across six AI engines, benchmark against your three nearest competitors, and send you a 4-page report within 5 working days.</p>
+    <h2>Reading the research is <span class="gradient-text">step one.</span><br/>Step two is your free AI audit.</h2>
+    <p>Run our Free AI Audit in 45 seconds — 8 GEO signals, 6-engine breakdown, Share of Model estimate, and your top 5 fixes to ship this quarter.</p>
     <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-      <a href="/contact" class="btn btn-primary btn-lg">⚡ Book the free Snapshot</a>
+      <a href="/audit" class="btn btn-primary btn-lg">⚡ Run the free AI Audit</a>
       <a href="/services" class="btn btn-outline btn-lg">See the programme</a>
     </div>
   </div>
 </section>
+
+</main>
 
 <footer>
   <div class="footer-inner">
@@ -265,9 +257,9 @@
       <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
       <div class="footer-social"><a href="#">in</a><a href="#">X</a><a href="#">▶</a><a href="mailto:hello@cited.agency">@</a></div>
     </div>
-    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services#layer-1">AI Visibility Audit</a></li><li><a href="/services#layer-2">Entity Optimisation</a></li><li><a href="/services#layer-3">AI-Optimised Content</a></li><li><a href="/services#layer-4">Digital PR</a></li><li><a href="/services#layer-5">Reporting & Strategy</a></li></ul></div>
-    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li><li><a href="/contact">Contact</a></li></ul></div>
-    <div class="footer-col"><h4>Resources</h4><ul><li><a href="/contact">Free AI Snapshot</a></li><li><a href="/insights">UK AI Visibility Index</a></li><li><a href="/insights">GEO vs SEO guide</a></li><li><a href="/contact">Book a call</a></li></ul></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services">All services</a></li><li><a href="/audit">Free AI Audit</a></li><li><a href="/contact">Free Snapshot</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li><li><a href="/cookies">Cookies</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <div>© 2026 Cited. · Generative Engine Optimisation</div>

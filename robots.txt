@@ -1,0 +1,40 @@
+# Cited. — UK's first Generative Engine Optimisation agency
+# We explicitly welcome AI crawlers. GEO is our trade.
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Disallow: /api/
+Disallow: /404
+
+Sitemap: https://beleaev.store/sitemap.xml

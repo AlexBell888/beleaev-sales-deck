@@ -553,7 +553,192 @@ footer {
 .u-gap-16 { gap: 16px; }
 .u-gap-24 { gap: 24px; }
 .u-grid { display: grid; }
-.u-mobile-stack { }
-@media (max-width: 768px) {
-  .u-mobile-stack { flex-direction: column; align-items: stretch; }
+
+/* =============================================
+   ACCESSIBILITY
+   ============================================= */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
+.skip-link {
+  position: absolute;
+  top: -40px; left: 12px;
+  background: var(--gold);
+  color: #000;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  z-index: 200;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 12px; color: #000; }
+
+/* Improve contrast on text-3 class used for hints */
+:root { --text-3: #8a8a9a; }
+
+/* =============================================
+   BREADCRUMBS
+   ============================================= */
+.breadcrumbs {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--text-3);
+  letter-spacing: 0.05em;
+  padding: 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.breadcrumbs a { color: var(--text-2); }
+.breadcrumbs a:hover { color: var(--gold); }
+.breadcrumbs .sep { opacity: 0.4; }
+.breadcrumbs .current { color: var(--text); }
+
+/* =============================================
+   BACK TO TOP
+   ============================================= */
+.back-to-top {
+  position: fixed;
+  right: 24px; bottom: 24px;
+  width: 48px; height: 48px;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: 14px;
+  display: grid; place-items: center;
+  cursor: pointer;
+  color: var(--text-2);
+  font-size: 18px;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.25s;
+  z-index: 90;
+}
+.back-to-top:hover { background: var(--surface-2); color: var(--gold); border-color: var(--gold); }
+.back-to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+
+/* =============================================
+   COOKIE CONSENT BANNER
+   ============================================= */
+.consent-banner {
+  position: fixed;
+  bottom: 16px; left: 16px; right: 16px;
+  max-width: 520px;
+  margin-left: auto;
+  background: rgba(12,12,22,0.96);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-2);
+  border-radius: 16px;
+  padding: 22px 24px;
+  box-shadow: 0 24px 60px -20px rgba(0,0,0,0.7);
+  z-index: 150;
+  transform: translateY(calc(100% + 24px));
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.consent-banner.show { transform: translateY(0); }
+.consent-banner h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.consent-banner p {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.consent-banner p a { color: var(--gold); }
+.consent-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.consent-actions .btn { flex: 1; min-width: 120px; justify-content: center; }
+@media (max-width: 600px) {
+  .consent-banner { left: 8px; right: 8px; bottom: 8px; padding: 18px 18px; }
+  .consent-actions .btn { font-size: 12px; padding: 10px 12px; }
+}
+
+/* =============================================
+   FORM SUCCESS / ERROR states
+   ============================================= */
+.alert {
+  padding: 16px 20px;
+  border-radius: 12px;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.alert-success { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+.alert-error { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: var(--red); }
+
+/* =============================================
+   ANTI-PITCH (who we don't work with)
+   ============================================= */
+.anti-pitch {
+  margin-top: 48px;
+  padding: 32px;
+  background: rgba(239,68,68,0.05);
+  border: 1px dashed rgba(239,68,68,0.3);
+  border-radius: 18px;
+}
+.anti-pitch .eyebrow { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); color: var(--red); margin-bottom: 14px; }
+.anti-pitch .eyebrow::before { background: var(--red); box-shadow: 0 0 8px var(--red); }
+.anti-pitch h3 { font-size: 22px; margin-bottom: 12px; font-family: 'Space Grotesk'; letter-spacing: -0.02em; }
+.anti-pitch ul { list-style: none; }
+.anti-pitch li { padding: 10px 0; padding-left: 28px; position: relative; font-size: 15px; color: var(--text-2); line-height: 1.5; }
+.anti-pitch li::before { content: '✕'; position: absolute; left: 0; top: 10px; color: var(--red); font-weight: 700; font-size: 14px; }
+
+/* =============================================
+   PRESS / AWARDS STRIP
+   ============================================= */
+.press-strip {
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.01);
+}
+.press-label {
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--text-3);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+}
+.press-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; opacity: 0.8; }
+.press-row .press-item {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--text-2);
+  letter-spacing: -0.01em;
+}
+.press-row .press-item strong { color: var(--text); font-weight: 600; font-style: normal; }
+
+/* =============================================
+   BADGE PILLS (awards)
+   ============================================= */
+.badge-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-2);
+  border-radius: 999px;
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-2);
+  letter-spacing: 0.05em;
+}
+.badge-pill::before {
+  content: '★';
+  color: var(--gold);
+  font-size: 14px;
+}
+

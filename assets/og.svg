@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07070c"/>
+      <stop offset="1" stop-color="#0d0d16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffd166"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#67e8f9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.3" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#a78bfa" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#07070c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- dot + logo -->
+  <circle cx="80" cy="80" r="8" fill="#ffd166"/>
+  <text x="100" y="90" font-family="system-ui,Space Grotesk,sans-serif" font-size="28" font-weight="700" fill="#f5f5f7" letter-spacing="-0.5">Cited<tspan fill="#ffd166">.</tspan></text>
+
+  <!-- tag -->
+  <text x="80" y="160" font-family="monospace" font-size="18" fill="#7a7a88" letter-spacing="3">THE UK'S FIRST GEO AGENCY · 2026</text>
+
+  <!-- headline -->
+  <text x="80" y="290" font-family="system-ui,Space Grotesk,sans-serif" font-size="84" font-weight="700" fill="#f5f5f7" letter-spacing="-2">When a buyer asks AI,</text>
+  <text x="80" y="390" font-family="system-ui,Space Grotesk,sans-serif" font-size="84" font-weight="700" letter-spacing="-2" fill="url(#accent)">your brand is the answer.</text>
+
+  <!-- stats -->
+  <text x="80" y="520" font-family="monospace" font-size="20" fill="#b8b8c8" letter-spacing="1">48% of Google answered by AI · 58.5% zero-click · 4.4–23× conversion · $750B by 2028</text>
+
+  <!-- footer -->
+  <text x="80" y="590" font-family="monospace" font-size="16" fill="#52525b" letter-spacing="2">cited.agency · Free AI Snapshot in 5 working days</text>
+</svg>

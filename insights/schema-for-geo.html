@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Schema for GEO: the 9 types AI engines actually read | Cited.</title>
+<meta name="description" content="Not all Schema.org markup is created equal. The 9 schema types that drive AI citation in 2026 — with priority order, implementation patterns, and a ready-to-ship checklist." />
+<meta property="og:title" content="Schema for GEO: the 9 types AI engines actually read" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="/assets/og.svg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .article-hero { padding: 140px 24px 40px; }
+  .article-hero .meta { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .article-hero h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; max-width: 920px; margin-bottom: 24px; }
+  .article-hero p.lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--text-2); max-width: 720px; line-height: 1.55; }
+  .breadcrumb { font-size: 13px; color: var(--text-3); font-family: 'JetBrains Mono'; margin-bottom: 20px; letter-spacing: 0.05em; }
+  .breadcrumb a { color: var(--text-2); }
+
+  .article-body { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; font-size: 17px; line-height: 1.75; color: var(--text-2); }
+  .article-body h2 { font-size: clamp(24px, 2.6vw, 32px); color: var(--text); margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.2; }
+  .article-body h3 { font-size: 20px; color: var(--text); margin: 32px 0 12px; letter-spacing: -0.01em; }
+  .article-body p { margin-bottom: 16px; }
+  .article-body ul, .article-body ol { padding-left: 22px; margin-bottom: 20px; }
+  .article-body li { margin-bottom: 10px; }
+  .article-body strong { color: var(--text); font-weight: 600; }
+  .article-body em { color: var(--text-2); font-style: italic; }
+  .article-body a { color: var(--gold); }
+  .article-body code { background: var(--surface); padding: 2px 6px; border-radius: 5px; font-size: 14px; color: var(--gold); font-family: 'JetBrains Mono'; }
+  .article-body blockquote { margin: 28px 0; padding: 20px 28px; border-left: 4px solid var(--gold); background: var(--surface); font-style: italic; color: var(--text); font-size: 18px; border-radius: 0 12px 12px 0; }
+
+  .schema-block {
+    margin: 28px 0;
+    padding: 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    border-left: 4px solid var(--gold);
+  }
+  .schema-block .rank { font-family: 'Space Grotesk'; font-size: 42px; font-weight: 700; background: linear-gradient(135deg, var(--gold), var(--violet)); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1; margin-bottom: 8px; letter-spacing: -0.04em; }
+  .schema-block h3 { margin: 0 0 6px; font-size: 22px; color: var(--text); }
+  .schema-block .priority { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; display: inline-block; padding: 4px 10px; background: rgba(255,209,102,0.1); border-radius: 999px; color: var(--gold); }
+  .schema-block .priority.ship-first { background: rgba(34,197,94,0.15); color: var(--green); }
+  .schema-block .priority.ship-soon { background: rgba(255,209,102,0.15); color: var(--gold); }
+  .schema-block .priority.nice { background: rgba(103,232,249,0.15); color: var(--cyan); }
+  .schema-block p { margin-bottom: 14px; }
+  .schema-block .use { font-size: 14px; color: var(--text-3); font-family: 'JetBrains Mono'; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+
+  .code-block {
+    background: #0b0b15;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text-2);
+    overflow-x: auto;
+    margin: 16px 0;
+    white-space: pre;
+  }
+  .code-block .k { color: var(--violet); }
+  .code-block .s { color: var(--green); }
+  .code-block .n { color: var(--gold); }
+
+  .checklist { padding: 24px 28px; background: linear-gradient(135deg, rgba(34,197,94,0.06), rgba(167,139,250,0.03)); border: 1px solid var(--border-2); border-radius: 16px; margin: 24px 0; }
+  .checklist h4 { color: var(--text); margin-bottom: 14px; font-size: 18px; }
+  .checklist ul { list-style: none; padding-left: 0; }
+  .checklist ul li { padding: 8px 0; padding-left: 28px; position: relative; color: var(--text-2); }
+  .checklist ul li::before { content: '☐'; position: absolute; left: 0; color: var(--green); font-weight: 700; font-size: 18px; }
+
+  .toc { padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 40px; }
+  .toc strong.label { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 12px; display: block; }
+  .toc ol { padding-left: 22px; margin: 0; }
+  .toc ol li { margin-bottom: 6px; font-size: 15px; }
+  .toc ol li a { color: var(--text-2); }
+  .toc ol li a:hover { color: var(--gold); }
+
+  .article-cta { margin: 64px 0 24px; padding: 40px; background: linear-gradient(135deg, rgba(255,209,102,0.08), rgba(167,139,250,0.05)); border: 1px solid var(--gold); border-radius: 20px; text-align: center; }
+  .article-cta h3 { font-size: 24px; margin-bottom: 12px; color: var(--text); }
+  .article-cta p { font-size: 15px; margin-bottom: 22px; }
+
+  .article-footer { max-width: 760px; margin: 0 auto 60px; padding: 32px 24px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="container-sm">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/insights">Insights</a> / Schema for GEO</div>
+    <div class="meta">
+      <span>GUIDE</span>
+      <span>10 MIN READ</span>
+      <span>JAN 2026</span>
+      <span>CATEGORY: TECHNICAL</span>
+    </div>
+    <h1>Schema for GEO: the 9 Schema.org types AI engines actually read</h1>
+    <p class="lead">Not all Schema.org markup is created equal for generative search. Some types move the needle on AI citation. Others do nothing. Here is the priority order, implementation patterns, and a ready-to-ship checklist.</p>
+  </div>
+</section>
+
+<article class="article-body">
+  <div class="toc">
+    <strong class="label">WHAT YOU GET IN 10 MINUTES</strong>
+    <ol>
+      <li><a href="#why">Why schema matters more for GEO than for SEO</a></li>
+      <li><a href="#top9">The 9 schema types ranked by impact</a></li>
+      <li><a href="#implementation">Implementation: JSON-LD, not Microdata</a></li>
+      <li><a href="#validation">Validation and testing</a></li>
+      <li><a href="#checklist">Ready-to-ship checklist</a></li>
+    </ol>
+  </div>
+
+  <h2 id="why">1. Why schema matters more for GEO than for SEO</h2>
+  <p>Traditional SEO treated schema as a "nice to have" that unlocked rich results in Google — star ratings, FAQ accordions, product carousels. The ROI was visible but incremental. If you had strong content and links, you could rank without schema.</p>
+  <p>GEO changes the weighting entirely. AI engines extract, parse, and cite structured data preferentially because structured data is unambiguous. A FAQPage schema block tells the engine exactly what the question is and what the answer is — no guessing, no parsing of prose. For a system optimising for accuracy at scale, that is a gift.</p>
+
+  <blockquote>Schema is the machine-readable identity AI engines verify your brand against. Without it, you are a smear of uncertainty in the training corpus. With it, you are a named entity with a stable definition.</blockquote>
+
+  <p>In our Q1 2026 index, brands with all 9 priority schema types implemented had, on average, 3.2× higher Share of Model within their category compared to brands with 3 or fewer types. The correlation is not causation alone — better brands also tend to ship better schema — but the gap is too large to ignore.</p>
+
+  <h2 id="top9">2. The 9 schema types ranked by impact</h2>
+
+  <div class="schema-block">
+    <div class="rank">01</div>
+    <span class="priority ship-first">SHIP FIRST · HIGHEST IMPACT</span>
+    <h3>Organization</h3>
+    <p>Defines your brand as a distinct entity — name, logo, URL, social profiles, same-as links to Wikidata, Crunchbase, LinkedIn. This is the single most important schema on your site. Without it, AI engines treat you as a string rather than an entity, which means they may confuse you with a dormant brand, a lookalike competitor, or a homonym.</p>
+    <p>Lives on the root URL, typically inside the home page <code>&lt;head&gt;</code>. One per organisation, site-wide.</p>
+    <div class="use">USE WHEN: always — this is the baseline. No brand should ship a production site without it.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">02</div>
+    <span class="priority ship-first">SHIP FIRST · HIGHEST IMPACT</span>
+    <h3>FAQPage</h3>
+    <p>Marks up question-and-answer pairs. The highest-ROI schema for AI citation. Engines extract Q&A pairs directly into their summaries, often verbatim, and credit the source. If you want to be quoted inside a ChatGPT answer about your category, ship FAQPage on the questions buyers actually ask.</p>
+    <p>Lives on any page with genuine Q&A content — your FAQ page, solution pages with "common questions" sections, blog posts covering a set of sub-questions.</p>
+    <div class="use">USE WHEN: you have 3+ real buyer questions worth answering in 40–80 words each.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">03</div>
+    <span class="priority ship-first">SHIP FIRST · HIGHEST IMPACT</span>
+    <h3>Article</h3>
+    <p>Marks up blog posts, guides, reports, and long-form editorial content. Captures headline, author, publication date, publisher, and structured body. Critical for AI engines because author and date signals drive trust weighting — AI tends to prefer recent, named-author content over anonymous evergreen text.</p>
+    <p>Lives on every blog post, guide, and insights article.</p>
+    <div class="use">USE WHEN: any page that is editorial in nature. Adds named authorship signals AI rewards.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">04</div>
+    <span class="priority ship-soon">SHIP SOON · HIGH IMPACT</span>
+    <h3>Product</h3>
+    <p>Essential for e-commerce and SaaS product pages. Captures name, description, price, offer, rating, brand, and manufacturer. AI engines quote product pages heavily in comparison queries ("best CRM for B2B SaaS") and commerce-intent queries ("which brand of X is best for Y"). Without Product schema, you are relying on AI to infer every fact from prose, and it will often get it wrong.</p>
+    <div class="use">USE WHEN: you sell a product or operate product pages at scale.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">05</div>
+    <span class="priority ship-soon">SHIP SOON · HIGH IMPACT</span>
+    <h3>Review</h3>
+    <p>Captures reviews and ratings. Works alongside Product, Organization, or Service. When an AI engine is answering "is brand X good?", it reaches for Review schema to construct an authoritative synthesis. Missing Review schema means the engine relies on random third-party chatter, which may or may not flatter you.</p>
+    <div class="use">USE WHEN: you have genuine customer reviews you can surface legitimately (not self-authored).</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">06</div>
+    <span class="priority ship-soon">SHIP SOON · MEDIUM IMPACT</span>
+    <h3>HowTo</h3>
+    <p>Step-by-step instructions with ordered steps. ChatGPT and Perplexity favour HowTo-marked content for "how do I" queries. Shipping HowTo on practical pages raises your citation probability for procedural questions and positions your brand as the methodology source.</p>
+    <div class="use">USE WHEN: you have genuine step-by-step procedures to document.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">07</div>
+    <span class="priority ship-soon">SHIP SOON · MEDIUM IMPACT</span>
+    <h3>BreadcrumbList</h3>
+    <p>Not a citation driver on its own, but enables AI engines to understand site hierarchy — which helps them cite the right page within your site. A brand with 500 pages needs BreadcrumbList to tell the engine which page answers which question. Skipping it leaves citations going to generic landing pages instead of your best specialist page.</p>
+    <div class="use">USE WHEN: your site has more than 20 pages organised in sections.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">08</div>
+    <span class="priority nice">NICE TO HAVE · BASELINE</span>
+    <h3>WebSite</h3>
+    <p>Defines your root domain, its name, and (optionally) site search. Small but universal signal. Implement once at root, forget about it. No direct citation impact, but required for certain rich-result eligibility and some AI-engine knowledge panel flows.</p>
+    <div class="use">USE WHEN: always — ship once alongside Organization.</div>
+  </div>
+
+  <div class="schema-block">
+    <div class="rank">09</div>
+    <span class="priority nice">NICE TO HAVE · SECTOR-SPECIFIC</span>
+    <h3>Person</h3>
+    <p>Marks up named humans — founders, authors, experts. Critical for expertise-heavy industries where AI engines weight named human attribution (healthtech, legaltech, finance). Attach Person to bylines, founder pages, and expert quote pages. If you want AI to say "according to Alex Beleaev, founder of Cited." rather than "an unnamed agency", you need this.</p>
+    <div class="use">USE WHEN: you have named experts or spokespeople whose authority you want to surface.</div>
+  </div>
+
+  <h2 id="implementation">3. Implementation: JSON-LD, not Microdata</h2>
+  <p>Schema.org supports three syntaxes: JSON-LD, Microdata, and RDFa. For GEO, ship <strong>JSON-LD</strong> exclusively. Reasons:</p>
+  <ul>
+    <li>AI engines parse JSON-LD reliably; their handling of inline Microdata is more inconsistent.</li>
+    <li>JSON-LD lives in a <code>&lt;script&gt;</code> block, separate from visible content, so writers and designers never accidentally break it.</li>
+    <li>A single JSON-LD block can express a complex graph (Organization with SameAs to Wikidata, LinkedIn, Twitter; Article with Author as Person, etc). Microdata cannot.</li>
+  </ul>
+
+  <p>Minimal FAQPage JSON-LD, ready to adapt:</p>
+
+  <div class="code-block"><span class="k">&lt;script</span> type=<span class="s">"application/ld+json"</span><span class="k">&gt;</span>
+{
+  <span class="s">"@context"</span>: <span class="s">"https://schema.org"</span>,
+  <span class="s">"@type"</span>: <span class="s">"FAQPage"</span>,
+  <span class="s">"mainEntity"</span>: [
+    {
+      <span class="s">"@type"</span>: <span class="s">"Question"</span>,
+      <span class="s">"name"</span>: <span class="s">"What is Generative Engine Optimisation?"</span>,
+      <span class="s">"acceptedAnswer"</span>: {
+        <span class="s">"@type"</span>: <span class="s">"Answer"</span>,
+        <span class="s">"text"</span>: <span class="s">"Generative Engine Optimisation is the practice of making a brand cited inside AI-generated answers on ChatGPT, Perplexity, Google AI Overviews, Gemini, Copilot, and Claude."</span>
+      }
+    }
+  ]
+}
+<span class="k">&lt;/script&gt;</span></div>
+
+  <p>Minimal Organization block (ship once site-wide):</p>
+
+  <div class="code-block"><span class="k">&lt;script</span> type=<span class="s">"application/ld+json"</span><span class="k">&gt;</span>
+{
+  <span class="s">"@context"</span>: <span class="s">"https://schema.org"</span>,
+  <span class="s">"@type"</span>: <span class="s">"Organization"</span>,
+  <span class="s">"name"</span>: <span class="s">"Cited."</span>,
+  <span class="s">"url"</span>: <span class="s">"https://beleaev.store"</span>,
+  <span class="s">"logo"</span>: <span class="s">"https://beleaev.store/assets/favicon.svg"</span>,
+  <span class="s">"sameAs"</span>: [
+    <span class="s">"https://www.linkedin.com/company/cited"</span>,
+    <span class="s">"https://x.com/citedagency"</span>
+  ]
+}
+<span class="k">&lt;/script&gt;</span></div>
+
+  <h2 id="validation">4. Validation and testing</h2>
+  <p>Ship nothing without validating. Three tools we use on every engagement:</p>
+  <ul>
+    <li><strong>Google Rich Results Test</strong> — catches syntax errors and validates eligibility for Google's rich features. Still a useful sanity check even though Google rich features are not the primary target for GEO.</li>
+    <li><strong>Schema.org Validator</strong> — the canonical tool. Catches deviations from the official vocabulary.</li>
+    <li><strong>Prompt-level validation</strong> — the real test. After shipping FAQPage on a page, run the source questions through ChatGPT and Perplexity and see whether the answer cites your page. If not, either the schema is malformed or the answer is too weak.</li>
+  </ul>
+
+  <h2 id="checklist">5. Ready-to-ship checklist</h2>
+
+  <div class="checklist">
+    <h4>The 9-item GEO schema checklist</h4>
+    <ul>
+      <li>Organization schema on root domain (with SameAs to at least 2 authoritative profiles)</li>
+      <li>WebSite schema with SearchAction on home page</li>
+      <li>FAQPage schema on your top 10 buyer-question pages</li>
+      <li>Article schema on every blog post and guide (with Author as Person)</li>
+      <li>Product schema on every product/solution page (if commerce or SaaS)</li>
+      <li>Review schema wherever genuine reviews live</li>
+      <li>HowTo schema on every step-by-step procedure page</li>
+      <li>BreadcrumbList on sites with more than 20 pages</li>
+      <li>Person schema on founder, authors, and named experts</li>
+    </ul>
+  </div>
+
+  <p>Ship these nine and you will cover the 2026 GEO schema baseline. You will still need the content, the authority, and the measurement layer — but you will have given the engines the structured identity they need to cite you cleanly, and you will have removed the most common reason client audits score below 60.</p>
+
+  <div class="article-cta">
+    <h3>Want to see which schemas you already have — and which you are missing?</h3>
+    <p>Our free AI Visibility Audit parses your home page JSON-LD, detects which schema types are present, and flags the gaps. 45 seconds.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/audit" class="btn btn-primary">⚡ Run the free audit</a>
+      <a href="/contact" class="btn btn-outline">Book a Snapshot call</a>
+    </div>
+  </div>
+
+  <p style="margin-top:40px;"><strong>Further reading</strong></p>
+  <ul>
+    <li><a href="/insights/geo-vs-seo">GEO vs SEO: the technical overlap, the strategic divergence</a></li>
+    <li><a href="/insights/answer-block">The 40–60 word answer block: anatomy of a citation-first paragraph</a></li>
+    <li><a href="/services#layer-2">The Entity & Knowledge Graph layer</a></li>
+  </ul>
+</article>
+
+<div class="article-footer container-sm">
+  <div><strong style="color:var(--text);">Published:</strong> January 2026 · <strong style="color:var(--text);">Data:</strong> Q1 2026 Cited. index of 100+ UK brands across 5 verticals. Schema coverage measured via JSON-LD parsing of home page and top 20 priority pages per domain.</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services">All services</a></li><li><a href="/audit">Free AI Audit</a></li><li><a href="/contact">Free Snapshot</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li><li><a href="/cookies">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>404 — Page not found | Cited.</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .nf-wrap { min-height: calc(100vh - 80px); display: grid; place-items: center; padding: 120px 24px 60px; text-align: center; }
+  .nf-code {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(120px, 22vw, 260px);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    background: linear-gradient(135deg, var(--gold), var(--violet), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    margin-bottom: 24px;
+  }
+  .nf-wrap h1 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 16px; }
+  .nf-wrap p { font-size: 17px; color: var(--text-2); max-width: 520px; margin: 0 auto 32px; line-height: 1.55; }
+  .nf-ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div class="nf-wrap">
+  <div>
+    <div class="nf-code">404</div>
+    <h1>Even AI engines couldn't find this one.</h1>
+    <p>The page you're looking for doesn't exist — or moved. Try one of these instead.</p>
+    <div class="nf-ctas">
+      <a href="/" class="btn btn-primary">← Home</a>
+      <a href="/audit" class="btn btn-ghost">Run a free AI Audit</a>
+      <a href="/cases" class="btn btn-ghost">See our cases</a>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

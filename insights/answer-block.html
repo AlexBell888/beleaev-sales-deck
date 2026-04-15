@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The 40–60 word answer block: anatomy of a citation-first paragraph | Cited.</title>
+<meta name="description" content="AI engines quote passages, not pages. We reverse-engineered 1,400 cited blocks to find the sentence structures, data patterns, and phrasings AI engines extract most often." />
+<meta property="og:title" content="The 40–60 word answer block: anatomy of a citation-first paragraph" />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="/assets/og.svg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .article-hero { padding: 140px 24px 40px; }
+  .article-hero .meta { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .article-hero h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; max-width: 920px; margin-bottom: 24px; }
+  .article-hero p.lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--text-2); max-width: 720px; line-height: 1.55; }
+  .breadcrumb { font-size: 13px; color: var(--text-3); font-family: 'JetBrains Mono'; margin-bottom: 20px; letter-spacing: 0.05em; }
+  .breadcrumb a { color: var(--text-2); }
+
+  .article-body { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; font-size: 17px; line-height: 1.75; color: var(--text-2); }
+  .article-body h2 { font-size: clamp(24px, 2.6vw, 32px); color: var(--text); margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.2; }
+  .article-body h3 { font-size: 20px; color: var(--text); margin: 32px 0 12px; letter-spacing: -0.01em; }
+  .article-body p { margin-bottom: 16px; }
+  .article-body ul, .article-body ol { padding-left: 22px; margin-bottom: 20px; }
+  .article-body li { margin-bottom: 10px; }
+  .article-body strong { color: var(--text); font-weight: 600; }
+  .article-body em { color: var(--text-2); font-style: italic; }
+  .article-body a { color: var(--gold); }
+  .article-body code { background: var(--surface); padding: 3px 8px; border-radius: 6px; font-size: 14px; color: var(--gold); font-family: 'JetBrains Mono'; }
+  .article-body blockquote { margin: 28px 0; padding: 20px 28px; border-left: 4px solid var(--gold); background: var(--surface); font-style: italic; color: var(--text); font-size: 18px; border-radius: 0 12px 12px 0; }
+
+  .block-example {
+    margin: 24px 0;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .block-example .label { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 10px; }
+  .block-example.bad { border-left: 4px solid var(--red); }
+  .block-example.good { border-left: 4px solid var(--green); }
+  .block-example.bad .label { color: var(--red); }
+  .block-example.good .label { color: var(--green); }
+  .block-example p { margin-bottom: 0; color: var(--text); font-size: 16px; }
+  .block-example .note { font-size: 13px; color: var(--text-3); margin-top: 10px; font-family: 'JetBrains Mono'; }
+
+  .toc { padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 40px; }
+  .toc strong.label { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 12px; display: block; }
+  .toc ol { padding-left: 22px; margin: 0; }
+  .toc ol li { margin-bottom: 6px; font-size: 15px; }
+  .toc ol li a { color: var(--text-2); }
+  .toc ol li a:hover { color: var(--gold); }
+
+  .article-cta { margin: 64px 0 24px; padding: 40px; background: linear-gradient(135deg, rgba(255,209,102,0.08), rgba(167,139,250,0.05)); border: 1px solid var(--gold); border-radius: 20px; text-align: center; }
+  .article-cta h3 { font-size: 24px; margin-bottom: 12px; color: var(--text); }
+  .article-cta p { font-size: 15px; margin-bottom: 22px; }
+
+  .article-footer { max-width: 760px; margin: 0 auto 60px; padding: 32px 24px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="container-sm">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/insights">Insights</a> / The Answer Block</div>
+    <div class="meta">
+      <span>PLAYBOOK</span>
+      <span>8 MIN READ</span>
+      <span>MAR 2026</span>
+      <span>CATEGORY: CONTENT</span>
+    </div>
+    <h1>The 40–60 word answer block: anatomy of a paragraph AI engines actually quote</h1>
+    <p class="lead">AI engines do not quote pages. They quote passages. We reverse-engineered 1,400 cited blocks across ChatGPT, Perplexity, and Google AI Overviews to find the sentence structures, data patterns, and phrasing that get extracted most often. Here is the complete template — with examples.</p>
+  </div>
+</section>
+
+<article class="article-body">
+  <div class="toc">
+    <strong class="label">WHAT YOU GET IN 8 MINUTES</strong>
+    <ol>
+      <li><a href="#why">Why the block matters more than the page</a></li>
+      <li><a href="#anatomy">The 5-part anatomy of a cited block</a></li>
+      <li><a href="#length">Why 40–60 words and not 80 or 100</a></li>
+      <li><a href="#bad-vs-good">Bad block vs good block, side by side</a></li>
+      <li><a href="#template">The ready-to-use template</a></li>
+      <li><a href="#placement">Where to put the block on your page</a></li>
+      <li><a href="#mistakes">The three mistakes we see on every client audit</a></li>
+    </ol>
+  </div>
+
+  <h2 id="why">1. Why the block matters more than the page</h2>
+  <p>A ChatGPT answer is typically 150–400 words long. A Perplexity answer sits around 200. A Google AI Overview runs 60–160. None of these read like a web page — they read like a distilled answer, with 4–8 citations linked underneath. When the AI engine decides which brands to quote, it is making the decision at the <em>passage</em> level, not the page level.</p>
+  <p>What the engine is actually doing, simplified: it takes the buyer's question, retrieves the top ~20 most relevant passages from its training and live-web sources, re-ranks them, pulls 4–6 passages into the context window of the generator model, and writes a fluent answer that stitches those passages together. Your job is to make sure one of those 4–6 passages comes from your site.</p>
+
+  <blockquote>SEO optimised the page. GEO optimises the quotable passage inside the page.</blockquote>
+
+  <p>This reframes everything about how content is written. A 2,500-word SEO article with a strong H1 may still rank — but if it contains zero discrete, extractable answer blocks, it will be summarised at best and skipped at worst. Every page now needs at least one purpose-built answer block, and ideally one per buyer question the page targets.</p>
+
+  <h2 id="anatomy">2. The 5-part anatomy of a cited block</h2>
+  <p>Across the 1,400 cited passages we studied, the same five components appeared repeatedly. They are not all mandatory, but cited blocks nearly always include four of the five.</p>
+
+  <h3>Component 1 — The question restated</h3>
+  <p>The first sentence of the block restates the buyer's question as a declarative statement. AI engines use this as a semantic anchor. Example: "Generative Engine Optimisation is the practice of..." instead of burying the term in paragraph three. This pattern alone lifts citation probability significantly.</p>
+
+  <h3>Component 2 — A precise, self-contained answer</h3>
+  <p>The second and third sentences deliver the answer without dependencies on surrounding paragraphs. A cited block should be extractable — if you cut it out of the article and pasted it into a Slack thread, it should still make sense. No "see above" or "as mentioned below".</p>
+
+  <h3>Component 3 — A quantified claim</h3>
+  <p>Numbers are the single strongest extraction signal. A sentence like "58.5% of all searches now end without a click" is roughly 3× more likely to be cited than a qualitative equivalent. Cited blocks nearly always contain at least one specific number — a percentage, a multiple, a time frame, a revenue figure.</p>
+
+  <h3>Component 4 — A named source or expert</h3>
+  <p>AI engines weight passages that reference authoritative sources. Inline attribution like "according to Seer Interactive's 25.1M impression study" or "McKinsey projects $750B" raises both the extraction probability and the quality of the citation (the AI links the <em>source</em> as well as your passage).</p>
+
+  <h3>Component 5 — A crisp conclusion</h3>
+  <p>The last sentence is the takeaway. It is often the one that appears in the AI answer, because it is the line the engine uses to "close" the block semantically. Make it punchy and specific.</p>
+
+  <h2 id="length">3. Why 40–60 words and not 80 or 100</h2>
+  <p>Extraction behaviour is not uniform across engines, but the 40–60 word range is the sweet spot. Below 40 words, blocks lack the signal density engines prefer. Above 70–80 words, they exceed the context budget the engine allocates per passage and tend to get truncated — losing either the question restatement or the conclusion.</p>
+  <p>We tested deliberate 120-word blocks and saw consistent truncation on Perplexity and AI Overviews. The engine picks the middle 60 words, often the least useful ones. Tight is better.</p>
+
+  <h2 id="bad-vs-good">4. Bad block vs good block, side by side</h2>
+
+  <div class="block-example bad">
+    <div class="label">✗ BAD BLOCK — NOT CITED</div>
+    <p>There are many approaches to optimising for AI search, and the industry is still figuring them out. Some say schema is the most important thing, others focus on content, and a few argue authority matters most. As we've mentioned earlier, the truth is that it's a combination of factors, and we'll explore each one in detail below.</p>
+    <p class="note">62 words. No question restated. No numbers. No attribution. References outside the block ("as mentioned earlier", "below"). Engines cannot extract this cleanly.</p>
+  </div>
+
+  <div class="block-example good">
+    <div class="label">✓ GOOD BLOCK — CITED 4 TIMES IN OUR TESTING</div>
+    <p>Generative Engine Optimisation (GEO) is the practice of making a brand cited inside AI-generated answers on ChatGPT, Perplexity, Google AI Overviews, Gemini, Copilot, and Claude. According to Seer Interactive, 58.5% of searches now end with zero clicks, making AI citation the single highest-value visibility signal for 2026.</p>
+    <p class="note">52 words. Question restated as declarative first sentence. Precise scope (the six engines). One specific number (58.5%). Named source (Seer Interactive). Conclusion locks in the "why it matters" angle.</p>
+  </div>
+
+  <h2 id="template">5. The ready-to-use template</h2>
+  <p>Copy this template. Fill in the brackets. Publish.</p>
+
+  <div class="block-example" style="border-left: 4px solid var(--gold);">
+    <div class="label" style="color: var(--gold);">TEMPLATE — 40–60 WORDS</div>
+    <p>[TERM OR QUESTION] is [PRECISE ONE-LINE DEFINITION]. According to [NAMED SOURCE], [QUANTIFIED CLAIM]. [CRISP CONCLUSION THAT REFRAMES WHY IT MATTERS].</p>
+    <p class="note">4 sentences, ~50 words. Every slot has a job. Numbers live in sentence 3.</p>
+  </div>
+
+  <p>Here is the same template filled in for a different category, to show the shape travels:</p>
+
+  <div class="block-example good">
+    <div class="label">✓ APPLIED TO CYBERSECURITY</div>
+    <p>Zero Trust Architecture is a security model that assumes no user or device is trusted by default, verifying every request regardless of network location. According to Gartner, 60% of enterprises will abandon traditional VPNs for Zero Trust by 2027. The shift is being driven by hybrid work, which has made the perimeter-based model structurally obsolete.</p>
+    <p class="note">58 words. Term restated. Gartner source. 60% by 2027 stat. Causal conclusion (hybrid work). This template ships in every vertical we work in.</p>
+  </div>
+
+  <h2 id="placement">6. Where to put the block on your page</h2>
+  <p>Placement matters. AI engines crawl the first 500 words of a page more aggressively than the rest. If your direct-answer block is in paragraph 11, the engine may never reach it before deciding what to extract. Three placement rules:</p>
+  <ul>
+    <li><strong>Rule 1 — First 300 words.</strong> The primary answer block belongs in the opening of the article, typically as the second paragraph (after a brief hook).</li>
+    <li><strong>Rule 2 — Bold the key sentence.</strong> Visual emphasis helps screen readers, skimmers, and also appears to weight extraction. Bold the sentence containing the specific number.</li>
+    <li><strong>Rule 3 — Use FAQPage schema for sub-questions.</strong> Secondary answer blocks addressing related questions should live inside a FAQ block with <code>FAQPage</code> structured data. Each Q&A pair is itself a cited block in miniature.</li>
+  </ul>
+
+  <h2 id="mistakes">7. The three mistakes we see on every client audit</h2>
+
+  <h3>Mistake 1 — Hiding the number</h3>
+  <p>The strongest statistic on the page is often buried in a data table in the middle of the article. Move it up. The stat is the reason the page gets cited.</p>
+
+  <h3>Mistake 2 — Relying on internal links to carry meaning</h3>
+  <p>SEO trained writers to say "as we explored in our guide to X" with an internal link. AI engines extracting a passage do not follow the internal link. They extract the passage as-is. If the meaning depends on the linked page, the passage is un-citable. Self-contained blocks only.</p>
+
+  <h3>Mistake 3 — No named source</h3>
+  <p>A passage that says "studies show" is weak. A passage that says "the Seer Interactive 25.1M impression study shows" is strong. Every stat deserves a named source, inline, even if you also cite it formally in the bibliography. The engine reads the inline attribution.</p>
+
+  <div class="article-cta">
+    <h3>Ready to audit your own answer blocks?</h3>
+    <p>Our free AI Visibility Audit detects answer-block patterns, FAQPage schema, and the exact passages on your home page that are (and are not) citable. 45 seconds.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/audit" class="btn btn-primary">⚡ Run the free audit</a>
+      <a href="/contact" class="btn btn-outline">Book a Snapshot call</a>
+    </div>
+  </div>
+
+  <p style="margin-top:40px;"><strong>Further reading</strong></p>
+  <ul>
+    <li><a href="/insights/geo-vs-seo">GEO vs SEO: the technical overlap, the strategic divergence</a></li>
+    <li><a href="/insights/schema-for-geo">Schema for GEO: the 9 types AI engines actually read</a></li>
+    <li><a href="/services">The 5-layer GEO programme</a></li>
+  </ul>
+</article>
+
+<div class="article-footer container-sm">
+  <div><strong style="color:var(--text);">Published:</strong> March 2026 · <strong style="color:var(--text);">Methodology:</strong> 1,400 cited passages sampled from ChatGPT 4o, Perplexity Pro, Google AI Overviews, Gemini 2.5 over Q4 2025 and Q1 2026. Passages stripped of site-specific styling and normalised for word count. Patterns cross-validated against <strong style="color:var(--text);">Cited Monitor</strong> prompt library.</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services">All services</a></li><li><a href="/audit">Free AI Audit</a></li><li><a href="/contact">Free Snapshot</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li><li><a href="/cookies">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

@@ -109,7 +109,7 @@
       <li><a href="/contact">Contact</a></li>
     </ul>
     <div class="nav-ctas">
-      <a href="/contact" class="btn btn-ghost btn-sm">Free Snapshot</a>
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
       <a href="/contact#booking" class="btn btn-primary btn-sm">Book a call →</a>
       <button class="nav-burger" aria-label="Toggle menu">☰</button>
     </div>
@@ -134,7 +134,10 @@
         <h2>Tell us about your brand.</h2>
         <p>We'll use these answers to score your AI visibility across six engines and benchmark against your three nearest competitors.</p>
 
-        <form id="snapshotForm" onsubmit="event.preventDefault(); document.getElementById('snapshotForm').style.display='none'; document.getElementById('formSuccess').classList.add('show');">
+        <form data-cited-form="contact-page">
+          <!-- Honeypot: hidden from users, catches bots -->
+          <div style="position:absolute;left:-9999px;opacity:0;pointer-events:none;" aria-hidden="true"><input type="text" name="website_confirm" tabindex="-1" autocomplete="off" /></div>
+          <div data-form-result></div>
           <div class="form-row">
             <div class="form-group">
               <label for="name">Your name *</label>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GEO vs SEO: the technical overlap, the strategic divergence | Cited.</title>
+<meta name="description" content="A detailed map of where Generative Engine Optimisation overlaps with traditional SEO, and where it breaks from it entirely. 12-minute read for CMOs and heads of marketing." />
+<meta property="og:title" content="GEO vs SEO: the technical overlap, the strategic divergence" />
+<meta property="og:description" content="What carries over, what your agency needs to rebuild, and the four decisions to ship this quarter." />
+<meta property="og:type" content="article" />
+<meta property="og:image" content="/assets/og.svg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .article-hero { padding: 140px 24px 40px; }
+  .article-hero .meta { font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 20px; display: flex; gap: 16px; flex-wrap: wrap; }
+  .article-hero h1 { font-size: clamp(32px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; max-width: 920px; margin-bottom: 24px; }
+  .article-hero p.lead { font-size: clamp(17px, 1.6vw, 20px); color: var(--text-2); max-width: 720px; line-height: 1.55; }
+  .breadcrumb { font-size: 13px; color: var(--text-3); font-family: 'JetBrains Mono'; margin-bottom: 20px; letter-spacing: 0.05em; }
+  .breadcrumb a { color: var(--text-2); }
+
+  .article-body { max-width: 760px; margin: 0 auto; padding: 40px 24px 60px; font-size: 17px; line-height: 1.75; color: var(--text-2); }
+  .article-body h2 { font-size: clamp(24px, 2.6vw, 32px); color: var(--text); margin: 48px 0 16px; letter-spacing: -0.02em; line-height: 1.2; }
+  .article-body h3 { font-size: 20px; color: var(--text); margin: 32px 0 12px; letter-spacing: -0.01em; }
+  .article-body p { margin-bottom: 16px; }
+  .article-body ul, .article-body ol { padding-left: 22px; margin-bottom: 20px; }
+  .article-body li { margin-bottom: 10px; }
+  .article-body strong { color: var(--text); font-weight: 600; }
+  .article-body em { color: var(--text-2); font-style: italic; }
+  .article-body a { color: var(--gold); }
+  .article-body blockquote {
+    margin: 28px 0;
+    padding: 20px 28px;
+    border-left: 4px solid var(--gold);
+    background: var(--surface);
+    font-style: italic;
+    color: var(--text);
+    font-size: 18px;
+    border-radius: 0 12px 12px 0;
+  }
+  .article-body .callout {
+    margin: 32px 0;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04));
+    border: 1px solid var(--border-2);
+    border-radius: 16px;
+  }
+  .article-body .callout strong.label { display: block; font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 10px; }
+
+  .compare-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 24px 0; font-size: 14px; }
+  .compare-table th, .compare-table td { padding: 14px 18px; text-align: left; border-bottom: 1px solid var(--border); }
+  .compare-table th { font-family: 'Space Grotesk'; font-size: 13px; font-weight: 600; background: rgba(255,255,255,0.02); color: var(--text); text-transform: uppercase; letter-spacing: 0.08em; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table td:first-child { color: var(--text); font-weight: 500; }
+
+  .article-cta { margin: 64px 0 24px; padding: 40px; background: linear-gradient(135deg, rgba(255,209,102,0.08), rgba(167,139,250,0.05)); border: 1px solid var(--gold); border-radius: 20px; text-align: center; }
+  .article-cta h3 { font-size: 24px; margin-bottom: 12px; color: var(--text); }
+  .article-cta p { font-size: 15px; margin-bottom: 22px; }
+
+  .toc { padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; margin-bottom: 40px; }
+  .toc strong.label { font-family: 'JetBrains Mono'; font-size: 11px; color: var(--gold); text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 12px; display: block; }
+  .toc ol { padding-left: 22px; margin: 0; }
+  .toc ol li { margin-bottom: 6px; font-size: 15px; }
+  .toc ol li a { color: var(--text-2); }
+  .toc ol li a:hover { color: var(--gold); }
+
+  .article-footer { max-width: 760px; margin: 0 auto 60px; padding: 32px 24px; border-top: 1px solid var(--border); font-size: 14px; color: var(--text-3); }
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/audit" class="btn btn-ghost btn-sm">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="article-hero">
+  <div class="container-sm">
+    <div class="breadcrumb"><a href="/">Home</a> / <a href="/insights">Insights</a> / GEO vs SEO</div>
+    <div class="meta">
+      <span>GUIDE</span>
+      <span>12 MIN READ</span>
+      <span>APR 2026</span>
+      <span>CATEGORY: FUNDAMENTALS</span>
+    </div>
+    <h1>GEO vs SEO: the technical overlap, and the strategic divergence nobody is naming</h1>
+    <p class="lead">If you run marketing in 2026 you have already heard three different versions of "GEO is just the new SEO". Two of them are wrong. Here is the operator's map of what carries over, what your agency has to rebuild, and the four decisions to ship this quarter.</p>
+  </div>
+</section>
+
+<article class="article-body">
+  <div class="toc">
+    <strong class="label">WHAT YOU GET IN 12 MINUTES</strong>
+    <ol>
+      <li><a href="#part1">The shift in one paragraph</a></li>
+      <li><a href="#part2">What carries over from SEO</a></li>
+      <li><a href="#part3">What breaks entirely</a></li>
+      <li><a href="#part4">The measurement layer neither SEO tools nor analytics give you</a></li>
+      <li><a href="#part5">Four decisions to ship this quarter</a></li>
+      <li><a href="#part6">Where the category is headed by 2028</a></li>
+    </ol>
+  </div>
+
+  <h2 id="part1">1. The shift in one paragraph</h2>
+  <p>For twenty years, discovery worked like this: a buyer typed a question, Google returned ten blue links, and your job was to rank in the top three. In 2026 the buyer still types the question — but increasingly they type it into ChatGPT, Perplexity, Gemini, Microsoft Copilot, Claude, or the AI Overview that Google itself now shows on top of the results page. The AI engine reads the web, decides which brands and sources to quote, and writes the answer for the buyer in plain English.</p>
+  <p><strong>Seer Interactive</strong>'s study of 25.1 million impressions showed a 61% drop in organic click-through when an AI Overview appears. <strong>Gartner</strong> projects a 25% fall in traditional search volume by 2026. <strong>McKinsey</strong> projects $750B of US revenue will flow through AI search channels by 2028. The buyer did not disappear. The click did.</p>
+  <p>Generative Engine Optimisation is the practice of making sure that when the AI engine writes the answer, it cites <em>your</em> brand. Not your tenth blue link — your citation inside the answer itself.</p>
+
+  <blockquote>Traditional SEO was the fight for the top three blue links. GEO is the fight for the sentence inside the AI answer that mentions your brand.</blockquote>
+
+  <h2 id="part2">2. What carries over from SEO (genuinely)</h2>
+  <p>There is a defensive move being made by every general SEO agency this year: "we've always done this, it's just technical SEO with a new coat of paint". They are not entirely wrong. Technical SEO and GEO share a real foundation. If your SEO was strong, you are starting from a better position than a brand that ignored the last ten years. Here is what actually carries over.</p>
+
+  <h3>2.1 Crawlability and indexing</h3>
+  <p>AI engines use crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Bingbot, Amazonbot, and a growing list) that behave much like traditional search crawlers. They fetch HTML, follow links, respect robots.txt, and process sitemaps. If your site is hard to crawl for Googlebot in 2025, it is hard to index for GPTBot in 2026.</p>
+  <p>The difference is that AI crawlers are easier to accidentally block. Many brands added blanket <code>Disallow: /</code> rules for "AI scrapers" in 2023–2024 out of IP-protection concerns, and then wondered why they became invisible to ChatGPT. We audit this on every engagement; roughly 30% of brands we scan have blocked at least one major AI crawler without realising.</p>
+
+  <h3>2.2 Schema markup</h3>
+  <p>JSON-LD structured data is still the single most portable signal you can ship. Organization, Product, Article, FAQPage, HowTo, Review, BreadcrumbList, WebSite — these are the same schemas Google used to build knowledge panels, and they are the same schemas LLMs draw on for entity disambiguation. Schema work you did for SEO keeps earning for GEO.</p>
+  <p>The difference is that AI engines reward schemas Google never surfaced. FAQPage in particular has become one of the highest-ROI schemas in 2026: AI engines extract the questions and answers directly into their summaries, often verbatim.</p>
+
+  <h3>2.3 Page structure and hierarchy</h3>
+  <p>A clean H1 → H2 → H3 hierarchy has always helped screen readers, search crawlers, and writers. Turns out it also helps AI engines skim a 3,000-word page and decide which 60-word chunk to extract. The discipline is the same; the reward has grown.</p>
+
+  <h3>2.4 Page speed and Core Web Vitals</h3>
+  <p>AI crawlers time out like everyone else. Slow pages get partially indexed or dropped. This did not change — it just became a little less visible, because AI engines do not publish rankings.</p>
+
+  <h2 id="part3">3. What breaks entirely</h2>
+  <p>This is where most general SEO agencies quietly fall behind. Four things you know from SEO do not survive the transition to GEO unchanged.</p>
+
+  <h3>3.1 Keyword targeting</h3>
+  <p>SEO trained a generation of marketers to think in keywords — short, head-term phrases with high search volume. You picked your 50 targets, wrote a page per keyword, and optimised titles and H1s around them.</p>
+  <p>AI engines do not reward keyword matching. They reward <em>semantic coverage</em> of the buyer's question. A single ChatGPT answer for "best CRM for B2B SaaS" pulls from content that talks about lead routing, pipeline stages, enterprise security, integrations, pricing, and onboarding — often in the same passage. The winners in GEO write long, expertise-dense content that reads naturally and covers the full semantic field of a buyer's question. The old keyword page that said "best CRM" fourteen times does not rank and does not get cited.</p>
+
+  <h3>3.2 Link building</h3>
+  <p>The entire SEO industry used to be built on link acquisition. PageRank weighted links as votes, and agencies shipped links at volume.</p>
+  <p>AI engines do not care about PageRank. They care about <em>which publications they were trained on and continue to crawl</em>. A single citation on Wikipedia, G2, Capterra, or Sifted is worth more than 100 guest-post links on low-authority blogs. Digital PR that targets the AI training corpus has overtaken link building as the dominant authority tactic.</p>
+
+  <h3>3.3 Measurement</h3>
+  <p>Google Search Console shows impressions, clicks, positions. Google Analytics shows sessions, conversion, revenue. Together they tell you how SEO performs. Neither of them tells you anything about GEO.</p>
+  <p>You cannot see your Share of Model in Search Console. You cannot see which AI prompts cite you in Google Analytics. You cannot compare yourself to a competitor's AI visibility in Ahrefs. The measurement layer is missing, and until it is built (either through a proprietary monitoring platform like ours or via manual prompt testing) you are operating blind.</p>
+
+  <h3>3.4 Content strategy</h3>
+  <p>SEO content strategy was about volume and coverage. You picked the keywords, you wrote the pages, you distributed them across your content hub. The best practice was 1,500–2,500 words per page with strong internal linking.</p>
+  <p>GEO content strategy is about <em>citability</em>. AI engines extract short, discrete passages of 40–80 words. Your content has to be written so those passages exist, stand alone, and quote cleanly. Every page now needs an anatomy: a direct-answer block at the top, stats-rich supporting sections, a named expert quote or two, and an FAQ cluster that mirrors the questions buyers actually ask ChatGPT.</p>
+
+  <div class="callout">
+    <strong class="label">SIDE-BY-SIDE</strong>
+    <table class="compare-table">
+      <thead>
+        <tr><th>Dimension</th><th>SEO</th><th>GEO</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Success metric</td><td>Organic rank, CTR, sessions</td><td>Share of Model, citation frequency, AI-referred revenue</td></tr>
+        <tr><td>Content unit</td><td>Page, ranking for a keyword</td><td>Passage, quoted inside an answer</td></tr>
+        <tr><td>Authority signal</td><td>Backlinks (PageRank)</td><td>Mentions inside trusted sources (Wikipedia, G2, tier-1 press)</td></tr>
+        <tr><td>Measurement tools</td><td>Search Console, GA, Ahrefs</td><td>Proprietary monitoring (Cited Monitor and peers)</td></tr>
+        <tr><td>Fastest lever</td><td>Technical fixes + content at volume</td><td>Schema + FAQ + expert-quote content</td></tr>
+        <tr><td>12-month cycle</td><td>Rankings → traffic → conversion</td><td>Citations → AI-referred sessions → pipeline attribution</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="part4">4. The measurement layer neither SEO tools nor analytics give you</h2>
+  <p>Here is where it gets expensive to get wrong. The reason most in-house teams cannot run GEO internally is not that they lack the skills — it is that they lack the measurement layer. Share of Model (the share of category-relevant AI answers that cite your brand) is not available in any consumer analytics tool. Per-engine citation counts require running hundreds of prompts through six different APIs and parsing the outputs. Prompt coverage requires a live library of query prompts that evolves with buyer behaviour.</p>
+  <p>Without measurement, everything else is theatre. You can ship all the schema you want, publish 200 pieces of citation-first content, and secure 40 tier-1 placements — and you will have no idea whether any of it moved the needle. The first thing every GEO engagement has to produce is a measurement baseline, and every month after that has to report against it.</p>
+
+  <h2 id="part5">5. Four decisions to ship this quarter</h2>
+  <p>If you take one thing from this piece, make it the following four decisions. These will set up the rest of 2026 whether you run GEO in-house or with an agency.</p>
+
+  <h3>Decision 1 — Audit your AI crawler access</h3>
+  <p>Check robots.txt today. Make sure GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended, Bingbot, and Amazonbot are all allowed. If any of these show up under a Disallow: / block, you are invisible to that engine entirely — and no amount of downstream work fixes that until you remove the block.</p>
+
+  <h3>Decision 2 — Ship FAQPage schema on your top 20 buyer questions</h3>
+  <p>FAQPage is the single highest-leverage schema change available right now. Mark up the questions buyers actually type into ChatGPT, with real 40–80 word answers, and deploy across your top 20 pages. Expect to see citation lift within 60 days.</p>
+
+  <h3>Decision 3 — Move your best stats to the top of your best pages</h3>
+  <p>AI engines extract short, quotable passages from the first 500 words of an article. If your most citable statistic is in paragraph 14, rewrite the page to put it in paragraph 2. This alone can change which brand gets cited first on a topic.</p>
+
+  <h3>Decision 4 — Start measuring Share of Model, monthly</h3>
+  <p>Even if you do not engage an agency, pick 10 priority queries, run them through ChatGPT and Perplexity manually once a month, and count how often your brand is mentioned vs your top two competitors. The measurement is rough, but it is better than flying blind — and seeing the numbers tends to change the urgency of the rest of the roadmap.</p>
+
+  <h2 id="part6">6. Where the category is headed by 2028</h2>
+  <p>Every major research house agrees on direction, even if they disagree on pace. Gartner, McKinsey, and Forrester all project continued acceleration in AI-driven discovery through 2028. Every quarter the AI engines improve their extraction, expand their training corpus, and bake deeper into the buyer's workflow.</p>
+  <p>The strategic implication is that category positions calcify. Once ChatGPT has learned to quote a specific brand for a specific question, it becomes statistically harder to displace that brand — every time the answer is accepted without challenge, the weight compounds. Waiting to run GEO is not a neutral choice. It is a choice to let the algorithm decide whose name gets read aloud to your buyers for the next five years.</p>
+
+  <div class="article-cta">
+    <h3>Want to see where you stand?</h3>
+    <p>Run a free AI Visibility Audit — 45 seconds, 8 GEO signals, 6-engine breakdown, and your first Share of Model estimate.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="/audit" class="btn btn-primary">⚡ Run the free audit</a>
+      <a href="/contact" class="btn btn-outline">Talk to us about a Snapshot</a>
+    </div>
+  </div>
+
+  <p style="margin-top:40px;"><strong>Further reading</strong></p>
+  <ul>
+    <li><a href="/insights/answer-block">The 40–60 word answer block: anatomy of a citation-first paragraph</a></li>
+    <li><a href="/insights/schema-for-geo">Schema for GEO: the 9 types AI engines actually read</a></li>
+    <li><a href="/cases">Case studies: +$290M, +105%, +11× — what GEO actually delivers</a></li>
+  </ul>
+</article>
+
+<div class="article-footer container-sm">
+  <div><strong style="color:var(--text);">Published:</strong> April 2026 · <strong style="color:var(--text);">Sources:</strong> Seer Interactive (25.1M impression study), Gartner, McKinsey, Forrester, Similarweb, Shopify merchant reports, in-house programme data.</div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services">All services</a></li><li><a href="/audit">Free AI Audit</a></li><li><a href="/contact">Free Snapshot</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li><li><a href="/cookies">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

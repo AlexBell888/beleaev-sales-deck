@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free AI Visibility Audit — scan your brand across 6 AI engines | Cited.</title>
+<meta name="description" content="Paste your URL. 45 seconds later, see your Share of Model, citation readiness across ChatGPT / Perplexity / Gemini / Copilot / Claude / Google AI — and the exact fixes to ship this quarter." />
+<meta property="og:title" content="Free AI Visibility Audit — Cited." />
+<meta property="og:description" content="See how AI engines treat your brand today. Get a 100-point GEO score in 45 seconds." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/assets/og.svg" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css">
+<style>
+  .audit-hero { padding: 140px 24px 20px; text-align: center; }
+  .audit-hero h1 { font-size: clamp(42px, 6vw, 80px); line-height: 0.98; letter-spacing: -0.04em; margin-bottom: 22px; }
+  .audit-hero p.lead { font-size: clamp(17px, 1.7vw, 20px); color: var(--text-2); max-width: 720px; margin: 0 auto 40px; }
+  .audit-hero-badges { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-3); margin-bottom: 20px; }
+  .audit-hero-badges span { display: inline-flex; align-items: center; gap: 8px; }
+  .audit-hero-badges span::before { content:''; width:6px; height:6px; border-radius:50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+  /* Audit form */
+  .audit-form-wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  .audit-form {
+    display: flex;
+    background: var(--surface);
+    border: 2px solid var(--border-2);
+    border-radius: 18px;
+    padding: 8px;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .audit-form:focus-within { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(255,209,102,0.15); }
+  .audit-form input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    padding: 16px 20px;
+    font-size: 17px;
+    font-family: 'JetBrains Mono', monospace;
+    outline: none;
+  }
+  .audit-form input::placeholder { color: var(--text-3); }
+  .audit-form button { padding: 16px 28px; font-size: 15px; flex-shrink: 0; }
+
+  .audit-form-hint { text-align: center; color: var(--text-3); font-size: 13px; margin-top: 16px; font-family: 'JetBrains Mono'; letter-spacing: 0.05em; }
+
+  /* Scanning animation */
+  .scanner { max-width: 760px; margin: 40px auto; padding: 0 24px; }
+  .scanner-card {
+    padding: 32px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+  }
+  .scanner-title { font-family: 'Space Grotesk'; font-size: 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .spinner {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid rgba(255,209,102,0.25);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .scan-log { list-style: none; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+  .scan-log li { padding: 8px 0; color: var(--text-3); display: flex; align-items: center; gap: 10px; opacity: 0; transform: translateX(-8px); animation: slideIn 0.3s forwards; }
+  .scan-log li.ok { color: var(--text-2); }
+  .scan-log li.ok::before { content: '✓'; color: var(--green); font-weight: 700; }
+  .scan-log li.working::before { content: '▸'; color: var(--gold); animation: blink 0.8s infinite; }
+  @keyframes blink { 50% { opacity: 0.3; } }
+  @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+
+  /* Results */
+  .results { max-width: 1080px; margin: 40px auto; padding: 0 24px; }
+  .result-hero {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+    padding: 48px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(255,209,102,0.06));
+    border: 2px solid var(--border-2);
+    border-radius: 28px;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+  }
+  .result-hero::before {
+    content:''; position: absolute; top:-50%; right:-20%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,209,102,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .result-hero-left { position: relative; z-index: 2; }
+  .result-domain { font-family: 'JetBrains Mono'; font-size: 13px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 14px; }
+  .result-tier-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-family: 'JetBrains Mono';
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .tier-good { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .tier-warn { background: rgba(255,209,102,0.15); color: var(--gold); border: 1px solid rgba(255,209,102,0.3); }
+  .tier-bad { background: rgba(248,113,113,0.15); color: var(--red); border: 1px solid rgba(248,113,113,0.3); }
+  .tier-critical { background: rgba(239,68,68,0.2); color: var(--red-2); border: 1px solid rgba(239,68,68,0.4); animation: pulse-critical 1.5s infinite; }
+  @keyframes pulse-critical { 0%,100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.3); } 50% { box-shadow: 0 0 0 10px transparent; } }
+
+  .result-headline { font-size: clamp(28px, 3.5vw, 42px); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 18px; }
+  .result-subhead { font-size: 16px; color: var(--text-2); line-height: 1.55; margin-bottom: 24px; }
+
+  .result-score {
+    font-family: 'Space Grotesk';
+    font-size: clamp(120px, 18vw, 220px);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+    background: linear-gradient(135deg, var(--gold), var(--violet), var(--cyan));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-align: center;
+    position: relative; z-index: 2;
+  }
+  .result-score-max { font-size: 0.3em; color: var(--text-3); font-weight: 400; }
+  .result-score-label { text-align: center; font-family: 'JetBrains Mono'; font-size: 12px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.2em; margin-top: 8px; }
+
+  /* FOMO banner */
+  .fomo-banner {
+    margin: 32px 0;
+    padding: 28px 32px;
+    background: linear-gradient(90deg, rgba(239,68,68,0.12), rgba(239,68,68,0.04));
+    border: 1px solid rgba(239,68,68,0.3);
+    border-left: 4px solid var(--red-2);
+    border-radius: 16px;
+  }
+  .fomo-banner.positive {
+    background: linear-gradient(90deg, rgba(34,197,94,0.12), rgba(34,197,94,0.04));
+    border-color: rgba(34,197,94,0.3);
+    border-left-color: var(--green);
+  }
+  .fomo-label { font-family: 'JetBrains Mono'; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; color: var(--red); margin-bottom: 10px; }
+  .fomo-banner.positive .fomo-label { color: var(--green); }
+  .fomo-text { font-size: 16px; color: var(--text); line-height: 1.55; }
+
+  /* Engine grid */
+  .engine-section { margin: 40px 0; }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 20px; }
+  .section-head h3 { font-size: 22px; font-family: 'Space Grotesk'; font-weight: 600; letter-spacing: -0.02em; }
+  .section-head p { color: var(--text-3); font-size: 13px; font-family: 'JetBrains Mono'; letter-spacing: 0.05em; }
+
+  .engines-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+  .engine {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    transition: all 0.2s;
+  }
+  .engine-name { font-size: 13px; color: var(--text-2); margin-bottom: 10px; font-weight: 500; }
+  .engine-score {
+    font-family: 'Space Grotesk';
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .engine-bar { height: 4px; background: rgba(255,255,255,0.08); border-radius: 999px; overflow: hidden; }
+  .engine-bar-fill { height: 100%; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .engine.good .engine-score { color: var(--green); }
+  .engine.good .engine-bar-fill { background: var(--green); }
+  .engine.warn .engine-score { color: var(--gold); }
+  .engine.warn .engine-bar-fill { background: var(--gold); }
+  .engine.bad .engine-score { color: var(--red); }
+  .engine.bad .engine-bar-fill { background: var(--red); }
+
+  /* Categories breakdown */
+  .cats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+  .cat {
+    padding: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    border-left: 4px solid var(--text-3);
+  }
+  .cat.good { border-left-color: var(--green); }
+  .cat.warn { border-left-color: var(--gold); }
+  .cat.bad { border-left-color: var(--red); }
+  .cat-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .cat-label { font-family: 'Space Grotesk'; font-size: 17px; font-weight: 600; }
+  .cat-score { font-family: 'JetBrains Mono'; font-size: 14px; color: var(--text-2); }
+  .cat-score strong { color: var(--text); font-size: 18px; }
+  .cat-progress { height: 6px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+  .cat-progress-fill { height: 100%; transition: width 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .cat.good .cat-progress-fill { background: var(--green); }
+  .cat.warn .cat-progress-fill { background: var(--gold); }
+  .cat.bad .cat-progress-fill { background: var(--red); }
+  .cat-detail { font-size: 13.5px; color: var(--text-2); line-height: 1.55; }
+
+  /* Competitive bar */
+  .competitive-strip {
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(167,139,250,0.08), rgba(255,209,102,0.04));
+    border: 1px solid var(--border-2);
+    border-radius: 20px;
+  }
+  .som-bar { display: grid; grid-template-columns: 120px 1fr 80px; gap: 16px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+  .som-bar:last-child { border-bottom: none; }
+  .som-label { font-size: 14px; color: var(--text-2); }
+  .som-label.you { color: var(--gold); font-weight: 600; }
+  .som-track { height: 12px; background: rgba(255,255,255,0.06); border-radius: 999px; overflow: hidden; }
+  .som-fill { height: 100%; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); }
+  .som-fill.you { background: linear-gradient(90deg, var(--gold), var(--violet)); }
+  .som-fill.leader { background: var(--green); }
+  .som-fill.peer { background: rgba(255,255,255,0.25); }
+  .som-value { font-family: 'JetBrains Mono'; font-size: 14px; text-align: right; color: var(--text-2); }
+  .som-value.you { color: var(--gold); font-weight: 600; }
+
+  /* Actions */
+  .actions-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .action-item {
+    display: flex; gap: 16px;
+    padding: 20px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .action-num {
+    flex-shrink: 0;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    color: #000;
+    display: grid; place-items: center;
+    font-family: 'Space Grotesk';
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .action-body strong { display: block; font-size: 15px; margin-bottom: 4px; }
+  .action-body span { font-size: 13.5px; color: var(--text-2); line-height: 1.5; }
+
+  /* Paywall-like CTA */
+  .upgrade-strip {
+    margin: 40px 0;
+    padding: 48px;
+    background: linear-gradient(135deg, rgba(255,209,102,0.1), rgba(167,139,250,0.05));
+    border: 2px solid var(--gold);
+    border-radius: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .upgrade-strip::before {
+    content:''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,209,102,0.15), transparent 70%);
+    pointer-events: none;
+  }
+  .upgrade-strip > * { position: relative; z-index: 2; }
+  .upgrade-strip h3 { font-size: clamp(24px, 3vw, 34px); line-height: 1.1; margin-bottom: 14px; }
+  .upgrade-strip p { font-size: 16px; color: var(--text-2); max-width: 620px; margin: 0 auto 24px; }
+  .upgrade-list { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-bottom: 32px; }
+  .upgrade-list li { font-size: 13px; color: var(--text-2); display: flex; align-items: center; gap: 6px; }
+  .upgrade-list li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+  .error-box {
+    padding: 24px; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 14px; color: var(--red);
+  }
+
+  @media (max-width: 900px) {
+    .result-hero { grid-template-columns: 1fr; padding: 32px 24px; }
+    .result-score { font-size: 120px; }
+    .audit-form { flex-direction: column; }
+    .audit-form button { width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+    <ul class="nav-links">
+      <li><a href="/services">Services</a></li>
+      <li><a href="/cases">Cases</a></li>
+      <li><a href="/pricing">Pricing</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/insights">Insights</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <a href="/audit" class="btn btn-ghost btn-sm active" style="color: var(--gold);">Free AI Audit</a>
+      <a href="/contact" class="btn btn-primary btn-sm">Book a call →</a>
+      <button class="nav-burger" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</nav>
+
+<section class="audit-hero">
+  <div class="container">
+    <div class="eyebrow gold" style="margin: 0 auto 20px;">FREE · NO SIGNUP · 45 SECONDS</div>
+    <h1>How visible is your brand<br/>to <span class="gradient-text">AI search engines?</span></h1>
+    <p class="lead">Paste your URL. We scan across the 8 GEO-specific signals ChatGPT, Perplexity, Gemini, Copilot, Claude, and Google AI Overviews use to decide who gets cited. You get a 100-point score, per-engine breakdown, and the exact fixes to ship this quarter.</p>
+    <div class="audit-hero-badges">
+      <span>8 GEO metrics</span>
+      <span>6 AI engines scored</span>
+      <span>Competitor-relative Share of Model</span>
+      <span>No email required to see the score</span>
+    </div>
+  </div>
+</section>
+
+<!-- Form -->
+<div class="audit-form-wrap">
+  <form id="auditForm" onsubmit="return runAudit(event)">
+    <div class="audit-form">
+      <input type="url" id="auditUrl" placeholder="https://yourbrand.com" required autocomplete="off" />
+      <button type="submit" class="btn btn-primary" id="auditBtn">⚡ Run the Audit</button>
+    </div>
+  </form>
+  <div class="audit-form-hint">YOUR URL IS NOT STORED · WE SCAN YOUR PUBLIC SITE ONLY · GDPR-SAFE</div>
+</div>
+
+<!-- Scanner (hidden initially) -->
+<div class="scanner" id="scanner" style="display:none;">
+  <div class="scanner-card">
+    <div class="scanner-title"><div class="spinner"></div><span id="scanTitle">Scanning your AI footprint...</span></div>
+    <ul class="scan-log" id="scanLog"></ul>
+  </div>
+</div>
+
+<!-- Results (hidden initially) -->
+<div class="results" id="results" style="display:none;"></div>
+
+<!-- Static context below form (before user runs audit) -->
+<section id="preRunContent">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">WHAT WE MEASURE</div>
+      <h2 class="section-title">8 GEO signals.<br/><span class="gradient-text">The ones that actually matter.</span></h2>
+      <p class="section-subtitle">Every AI engine weights these differently. Gaps in any one of them will cost you citations — and the pipeline behind them.</p>
+    </div>
+
+    <div class="cats-grid" style="margin-top: 32px;">
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Share of Model</div><div class="cat-score"><strong>20</strong>/20</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">The % of category-relevant AI answers that cite your brand. Category leaders sit at 30–45%. Everyone below 15% is effectively invisible.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Schema Coverage</div><div class="cat-score"><strong>15</strong>/15</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">Organization, Product, Article, FAQPage, HowTo, Review, BreadcrumbList, WebSite. AI engines read structured data, not prose.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Answer-Block Readiness</div><div class="cat-score"><strong>15</strong>/15</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">FAQPage schema, direct-answer patterns, Q&A sections, 40–60 word extractable passages. AI quotes blocks, not paragraphs.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">AI Crawler Access</div><div class="cat-score"><strong>12</strong>/12</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">Does your robots.txt allow GPTBot, ClaudeBot, PerplexityBot, CCBot, Google-Extended? Blocking any one blocks you from that engine entirely.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Entity Readiness</div><div class="cat-score"><strong>12</strong>/12</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">Canonical, meta description, OG tags, Twitter card, knowledge panel signals. The machine-readable identity AI systems verify against.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Authority Signals</div><div class="cat-score"><strong>10</strong>/10</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">Mentions on G2, Capterra, Trustpilot, Wikipedia, tier-1 press. AI models train on sources they trust — and they trust these.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Content Depth</div><div class="cat-score"><strong>10</strong>/10</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">Word count, original data, statistics, expert quotes. Thin content gets summarised; deep content gets quoted.</div></div>
+      <div class="cat good"><div class="cat-head"><div class="cat-label">Heading Hierarchy</div><div class="cat-score"><strong>6</strong>/6</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:100%"></div></div><div class="cat-detail">One H1, multiple H2s, clean structure. A document AI can skim in under a second beats a flat wall of text every time.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Scoring tiers visualization -->
+<section style="background: rgba(255,255,255,0.015); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);" id="tiersSection">
+  <div class="container">
+    <div class="section-header center">
+      <div class="eyebrow">HOW TO READ YOUR SCORE</div>
+      <h2 class="section-title">The 4 tiers — and the <span class="gradient-text">cost of each.</span></h2>
+    </div>
+    <div class="cats-grid">
+      <div class="cat bad">
+        <div class="cat-head"><div class="cat-label" style="color:var(--red)">🚨 AT RISK</div><div class="cat-score">0–39</div></div>
+        <div class="cat-detail">You are effectively invisible to AI search. 2026 buyer discovery is happening without you. Every month of inaction compounds the gap. Category leaders are pulling ahead.</div>
+      </div>
+      <div class="cat warn">
+        <div class="cat-head"><div class="cat-label" style="color:var(--gold)">⚠ BEHIND THE CURVE</div><div class="cat-score">40–59</div></div>
+        <div class="cat-detail">You exist to AI engines, but only in the long tail. Most buyer queries in your category still go to competitors. The GEO window is 12–18 months before positions calcify.</div>
+      </div>
+      <div class="cat warn">
+        <div class="cat-head"><div class="cat-label" style="color:#ffd166">◐ EMERGING</div><div class="cat-score">60–79</div></div>
+        <div class="cat-detail">You have the foundations. AI engines see you but not first. 2–3 category peers are scoring above 80. Every quarter they pull further ahead and the algorithm calcifies preference.</div>
+      </div>
+      <div class="cat good">
+        <div class="cat-head"><div class="cat-label" style="color:var(--green)">⭐ AI-READY</div><div class="cat-score">80–100</div></div>
+        <div class="cat-detail">You are one of &lt;5% of brands AI engines reliably cite. Your job now is to widen the gap. Category leaders compound faster than challengers can catch up.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Proof / social -->
+<section>
+  <div class="container">
+    <div class="cta-card" style="max-width: 920px;">
+      <div class="eyebrow" style="margin: 0 auto 20px;">WHAT HAPPENS AFTER THE AUDIT</div>
+      <h3 style="font-size: clamp(24px, 3vw, 36px); margin-bottom: 14px;">Your free 100-point audit is a diagnostic,<br/>not a plan.</h3>
+      <p style="font-size: 16px; color: var(--text-2); margin-bottom: 28px;">The audit tells you where you stand. The free Expert Snapshot (4 pages, 5 working days) tells you exactly what to fix, in what order, and what impact each move has on your Share of Model. No sales pitch attached.</p>
+      <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="/contact" class="btn btn-primary btn-lg">⚡ Get the free Expert Snapshot</a>
+        <a href="/cases" class="btn btn-outline btn-lg">See what 90 days looks like</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo"><span class="logo-dot"></span><span>Cited<span style="color:var(--gold)">.</span></span></a>
+      <p>The UK's first dedicated Generative Engine Optimisation agency. We make sure AI engines cite your brand first.</p>
+    </div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services">All services</a></li><li><a href="/audit">Free AI Audit</a></li><li><a href="/contact">Free Snapshot</a></li></ul></div>
+    <div class="footer-col"><h4>Company</h4><ul><li><a href="/about">About</a></li><li><a href="/cases">Cases</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/insights">Insights</a></li></ul></div>
+    <div class="footer-col"><h4>Legal</h4><ul><li><a href="/privacy">Privacy</a></li><li><a href="/terms">Terms</a></li><li><a href="/cookies">Cookies</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Cited. · Generative Engine Optimisation</div>
+    <div>cited.agency · hello@cited.agency · London, UK</div>
+  </div>
+</footer>
+
+<script src="/assets/app.js"></script>
+<script>
+  const scanSteps = [
+    'Fetching your public homepage...',
+    'Checking robots.txt for AI crawler access...',
+    'Parsing Schema.org JSON-LD blocks...',
+    'Scoring Entity Readiness (OG, canonical, meta)...',
+    'Detecting answer-block patterns (FAQ, Q&A, direct answers)...',
+    'Measuring content depth and heading hierarchy...',
+    'Estimating Share of Model across 6 AI engines...',
+    'Cross-referencing authority signals...',
+    'Compiling your 100-point GEO score...'
+  ];
+
+  function appendLog(text, state = 'working') {
+    const li = document.createElement('li');
+    li.className = state;
+    li.textContent = text;
+    document.getElementById('scanLog').appendChild(li);
+    return li;
+  }
+  function finishLog(li) {
+    li.classList.remove('working');
+    li.classList.add('ok');
+  }
+
+  async function runAudit(e) {
+    e.preventDefault();
+    const url = document.getElementById('auditUrl').value.trim();
+    if (!url) return false;
+
+    // Hide pre-run content, show scanner
+    document.getElementById('preRunContent').style.display = 'none';
+    document.getElementById('tiersSection').style.display = 'none';
+    document.getElementById('results').style.display = 'none';
+    const scanner = document.getElementById('scanner');
+    scanner.style.display = 'block';
+    const log = document.getElementById('scanLog');
+    log.innerHTML = '';
+    document.getElementById('auditBtn').disabled = true;
+    document.getElementById('auditBtn').textContent = 'Scanning...';
+
+    // Fire request in parallel with animation
+    const reqP = fetch('/api/audit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url })
+    }).then(r => r.json()).catch(err => ({ ok: false, error: err.message }));
+
+    // Animated progress
+    for (let i = 0; i < scanSteps.length; i++) {
+      const li = appendLog(scanSteps[i], 'working');
+      await new Promise(r => setTimeout(r, 550 + Math.random() * 350));
+      finishLog(li);
+    }
+
+    // Wait for request to finish if still pending
+    const data = await reqP;
+
+    document.getElementById('auditBtn').disabled = false;
+    document.getElementById('auditBtn').textContent = '⚡ Run again';
+
+    scanner.style.display = 'none';
+
+    if (!data.ok) {
+      const results = document.getElementById('results');
+      results.style.display = 'block';
+      results.innerHTML = `<div class="error-box"><strong>Could not complete the audit.</strong><br/>${(data.error || 'Unknown error')}<br/><br/>Try again with a different URL, or <a href="/contact" style="color:var(--gold)">request the expert Snapshot</a> and we'll run it manually.</div>`;
+      return false;
+    }
+
+    renderResults(data);
+    return false;
+  }
+
+  function verdictClass(pct) {
+    if (pct >= 80) return 'good';
+    if (pct >= 60) return 'warn';
+    if (pct >= 40) return 'warn';
+    return 'bad';
+  }
+  function tierClass(pct) {
+    if (pct >= 80) return 'tier-good';
+    if (pct >= 60) return 'tier-warn';
+    if (pct >= 40) return 'tier-warn';
+    return 'tier-bad tier-critical';
+  }
+
+  function engineClass(s) {
+    if (s >= 70) return 'good';
+    if (s >= 40) return 'warn';
+    return 'bad';
+  }
+
+  function recommendationsFromCats(cats) {
+    const sorted = Object.entries(cats)
+      .map(([k, c]) => ({ k, ...c, gap: c.max - c.score }))
+      .sort((a, b) => b.gap - a.gap);
+    const top = sorted.slice(0, 5);
+    const tips = {
+      schema: ['Ship Organization + WebSite schema on the home page', 'Add Product/Article schema to core templates', 'Add FAQPage schema to your top 20 buyer questions'],
+      entity: ['Set canonical URLs on every template', 'Add complete OG (title, description, image) and Twitter card', 'Publish a verified knowledge panel via Google Search Console'],
+      answers: ['Build a FAQ cluster with FAQPage schema on your top-10 buyer questions', 'Add 40–60 word direct-answer blocks at the top of every article', 'Mark up Q&A sections with dt/dd or details/summary'],
+      depth: ['Extend top pages past 1,500 words with original data, expert quotes, and citable stats', 'Publish 1 data-led report per quarter to become the cited source', 'Add named expert bylines with verifiable credentials'],
+      headings: ['Use a single clear H1 per page', 'Break content with H2 every 250–400 words', 'Use H3 for sub-answers AI can extract'],
+      crawlers: ['Allow GPTBot, ClaudeBot, PerplexityBot, CCBot, and Google-Extended in robots.txt', 'Remove any Disallow: / under these user-agents', 'Submit sitemap.xml to Google Search Console and Bing Webmaster Tools'],
+      authority: ['Claim and optimise G2, Capterra, Trustpilot profiles', 'Pursue Wikipedia citation eligibility for your category', 'Secure 4–6 tier-1 press placements per quarter with named expert quotes'],
+      som: ['Run a per-prompt citation audit across your 50 priority queries', 'Build citation-first content for every query where a competitor currently wins', 'Track Share of Model monthly as a CMO-scorecard KPI']
+    };
+    const out = [];
+    for (const c of top) {
+      const pool = tips[c.k] || [];
+      if (pool.length) out.push({ label: c.label, action: pool[0] });
+    }
+    return out.slice(0, 5);
+  }
+
+  function renderResults(d) {
+    const el = document.getElementById('results');
+    el.style.display = 'block';
+
+    const tierCls = tierClass(d.score);
+    const fomoCls = d.score >= 60 ? 'positive' : '';
+    const actions = recommendationsFromCats(d.categories);
+
+    // Competitive Share of Model bar (leader + peers synthetic)
+    const leader = Math.max(34, Math.round(d.sommPct * 3));
+    const peer = Math.max(8, Math.round(d.sommPct * 1.6));
+
+    const engineHtml = Object.entries(d.engines).map(([name, s]) => {
+      const cls = engineClass(s);
+      return `<div class="engine ${cls}"><div class="engine-name">${name}</div><div class="engine-score">${s}<span style="font-size:14px;color:var(--text-3)">/100</span></div><div class="engine-bar"><div class="engine-bar-fill" style="width:${s}%"></div></div></div>`;
+    }).join('');
+
+    const catHtml = Object.values(d.categories).map(c => {
+      const pct = Math.round((c.score / c.max) * 100);
+      return `<div class="cat ${c.verdict}"><div class="cat-head"><div class="cat-label">${c.label}</div><div class="cat-score"><strong>${c.score}</strong>/${c.max}</div></div><div class="cat-progress"><div class="cat-progress-fill" style="width:${pct}%"></div></div><div class="cat-detail">${c.detail}</div></div>`;
+    }).join('');
+
+    const actionsHtml = actions.map((a, i) =>
+      `<li class="action-item"><div class="action-num">${i+1}</div><div class="action-body"><strong>${a.label}</strong><span>${a.action}</span></div></li>`
+    ).join('');
+
+    el.innerHTML = `
+      <div class="result-hero">
+        <div class="result-hero-left">
+          <div class="result-domain">AUDIT RESULT · ${d.domain}</div>
+          <div class="result-tier-pill ${tierCls}">${d.tier}</div>
+          <h2 class="result-headline">${d.verdict}</h2>
+          <p class="result-subhead">Benchmarked against 8 GEO-specific signals AI engines use for citation, plus a synthetic Share of Model estimate anchored to your visibility footprint.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="/contact?source=audit&domain=${encodeURIComponent(d.domain)}&score=${d.score}" class="btn btn-primary">Get the full Expert Snapshot →</a>
+            <button class="btn btn-outline" onclick="location.reload()">Scan another URL</button>
+          </div>
+        </div>
+        <div>
+          <div class="result-score">${d.score}<span class="result-score-max">/100</span></div>
+          <div class="result-score-label">YOUR GEO SCORE</div>
+        </div>
+      </div>
+
+      <div class="fomo-banner ${fomoCls}">
+        <div class="fomo-label">${d.score >= 60 ? 'OPPORTUNITY AHEAD' : 'THE CATEGORY IS CLOSING'}</div>
+        <div class="fomo-text">${d.fomo}</div>
+      </div>
+
+      <div class="competitive-strip">
+        <div class="section-head" style="margin-bottom:10px;"><h3>Share of Model · Competitive Snapshot</h3><p>SYNTHETIC · CATEGORY AGGREGATE</p></div>
+        <p style="color:var(--text-3);font-size:13px;margin-bottom:18px;">How your brand's estimated AI citation share compares to a category leader and a typical peer. Based on your visibility footprint and category-level distributions.</p>
+        <div class="som-bar">
+          <div class="som-label">Category leader</div>
+          <div class="som-track"><div class="som-fill leader" style="width:${leader}%"></div></div>
+          <div class="som-value">${leader}%</div>
+        </div>
+        <div class="som-bar">
+          <div class="som-label">Typical peer</div>
+          <div class="som-track"><div class="som-fill peer" style="width:${peer}%"></div></div>
+          <div class="som-value">${peer}%</div>
+        </div>
+        <div class="som-bar">
+          <div class="som-label you">You — ${d.domain}</div>
+          <div class="som-track"><div class="som-fill you" style="width:${Math.max(1, Math.round(d.sommPct))}%"></div></div>
+          <div class="som-value you">${d.sommPct}%</div>
+        </div>
+      </div>
+
+      <div class="engine-section">
+        <div class="section-head"><h3>Per-Engine Citation Readiness</h3><p>6 AI ENGINES · CONFIDENCE SCORE 0–100</p></div>
+        <div class="engines-grid">${engineHtml}</div>
+      </div>
+
+      <div class="engine-section">
+        <div class="section-head"><h3>Category Breakdown</h3><p>8 GEO METRICS · WEIGHTED TO 100</p></div>
+        <div class="cats-grid">${catHtml}</div>
+      </div>
+
+      <div class="upgrade-strip">
+        <div class="eyebrow gold" style="margin:0 auto 16px;">NEXT STEP · FREE EXPERT SNAPSHOT</div>
+        <h3>This audit shows you the gap.<br/>The Expert Snapshot shows you the <span class="gradient-text">map.</span></h3>
+        <p>We run the same scan manually, benchmark against your 3 nearest competitors, map every priority query, and deliver a prioritised 4-page fix plan. 5 working days. No sales pitch.</p>
+        <ul class="upgrade-list">
+          <li>Per-prompt citation scan (50+ priority queries)</li>
+          <li>Competitor-by-competitor gap map</li>
+          <li>Prioritised 12-month fix roadmap</li>
+          <li>Revenue impact model tied to Share of Model</li>
+          <li>No obligation, no auto-renewal</li>
+        </ul>
+        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+          <a href="/contact?source=audit&domain=${encodeURIComponent(d.domain)}&score=${d.score}" class="btn btn-primary btn-lg">⚡ Request the Expert Snapshot</a>
+          <a href="/pricing" class="btn btn-outline btn-lg">See tier pricing</a>
+        </div>
+      </div>
+
+      <div class="engine-section">
+        <div class="section-head"><h3>Your Top 5 Actions</h3><p>HIGHEST-GAP CATEGORIES · SHIP THIS QUARTER</p></div>
+        <ul class="actions-list">${actionsHtml}</ul>
+      </div>
+    `;
+
+    window.scrollTo({ top: el.offsetTop - 80, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
